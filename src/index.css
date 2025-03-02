@@ -5,5 +5,10 @@
   --color-dark-700: #21222d;
   --color-sidebar-line: #2c2d33;
   --color-default-text: #87888c;
-  --color-heading-text: #ffffff;
+  --color-title-text: #ffffff;
+  --color-gray-text: #ffffff;
+  --color-green: #a9dfd8;
+  --color-orange: #feb95a;
+  --color-pink: #f2c8ed;
+  --color-blue: #20aef3;
 }

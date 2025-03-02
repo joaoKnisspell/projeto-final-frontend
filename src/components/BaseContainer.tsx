@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Sidebar } from './sidebar/Sidebar';
+import { Sidebar } from './Sidebar/Sidebar';
 
 type BaseContainerProps = {
   children: ReactNode;

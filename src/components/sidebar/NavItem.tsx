@@ -9,7 +9,7 @@ type NavItemProps = {
 
 export const NavItem = ({ icon, text, path }: NavItemProps) => {
   return (
-    <Link to={path} className="w-full flex items-center justify-start gap-2 h-20">
+    <Link to={path} className="w-full flex items-center justify-start gap-2 h-9">
       {icon}
       <span className="font-medium">{text}</span>
     </Link>
