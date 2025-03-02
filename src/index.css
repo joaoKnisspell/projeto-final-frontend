@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-dark-900: #171821;
+  --color-dark-700: #21222d;
+  --color-sidebar-line: #2c2d33;
+  --color-default-text: #87888c;
+  --color-heading-text: #ffffff;
+}
