@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 type SummaryDetailCardProps = {
   icon: ReactNode;
-  info: string;
+  info: string | number;
   title: string;
   subtitle: string;
   color: string;

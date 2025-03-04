@@ -13,11 +13,14 @@ export const endpoints = {
     put: '/produtos/:id',
     delete: '/produtos/:id',
   },
-  transacoes: {
-    get: '/transacoes',
-    post: '/transacoes',
-    getById: '/transacoes/:id',
-    put: '/transacoes/:id',
-    delete: '/transacoes/:id',
+  pedidos: {
+    get: '/pedidos',
+    post: '/pedidos',
+    getById: '/pedidos/:id',
+    put: '/pedidos/:id',
+    delete: '/pedidos/:id',
+  },
+  gerenciamento: {
+    get: '/gerenciamento',
   },
 };

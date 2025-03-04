@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { BaseContainer } from '../components/BaseContainer';
-import { TransacoesService } from '../services/transacoes/transacoes-service';
+import { PedidosService } from '../services/pedidos/pedidos-service';
 
 export const TransactionsPage = () => {
   const { data, isFetching } = useQuery({
-    queryKey: ['transacoes'],
+    queryKey: ['pedidos'],
     queryFn: async () => {
       try {
-        const response = await TransacoesService.GetAll();
+        const response = await PedidosService.GetAll();
         return response;
       } catch (error) {
         console.error(error);
