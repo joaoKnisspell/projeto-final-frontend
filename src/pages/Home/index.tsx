@@ -5,18 +5,18 @@ import useHomePage from './hooks/useHomePage';
 import SummaryCardsSection from './components/SummaryCardsSection';
 import AssideCardsSection from './components/AssideCardsSection';
 import { Plus } from 'lucide-react';
+import { TransactionTablecolumns } from '../../utils/TransactionTableColumns';
 
 export const HomePage = () => {
-  const { summary, isFetchingSummary, transactions, isFetchingTransactions, isFetchedTransactions, columns } =
-    useHomePage();
+  const { summary, isFetchingSummary, transactions, isFetchingTransactions, isFetchedTransactions } = useHomePage();
 
   return (
     <>
       <BaseContainer>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-4 max-w-[983px] w-full">
           <section className="col-span-2 grid grid-rows-3 gap-4 w-[650px]">
             <Row className="row-span-1 w-full">
-              <Col className="w-full">
+              <Col className="w-full flex">
                 <Card title="Gerenciamento" subtitle={`${new Date().toLocaleString('pt-BR')}`}>
                   {isFetchingSummary ? (
                     <Row className="flex items-center justify-center w-full">
@@ -32,7 +32,7 @@ export const HomePage = () => {
               <Row className="w-full row-span-">
                 <Card title="Últimas Transações" subtitle="Listagem de Entradas e Saídas">
                   <Table
-                    columns={columns}
+                    columns={TransactionTablecolumns}
                     dataSource={isFetchedTransactions && transactions}
                     loading={isFetchingTransactions}
                     size="small"
@@ -43,7 +43,7 @@ export const HomePage = () => {
               </Row>
               <Row className="row-span-1 w-full">
                 <Card title="Menu Rápido">
-                  <div className="flex justify-around">
+                  <div className="flex justify-around items-center">
                     <div className="relative flex items-center justify-center bg-dark-900 w-fit p-4 rounded-[10px] cursor-pointer font-medium text-orange">
                       <h5>Cadastrar Categoria</h5>
                       <Plus size={25} className="absolute right-[-8px] top-[-8px]" />
