@@ -1,12 +1,22 @@
 import { BaseContainer } from '../../../components/BaseContainer';
 import CadastroBaseContainer from '../../../components/CadastroBaseContainer';
-import { TransactionTablecolumns } from '../../../utils/TransactionTableColumns';
+import { CategoriesTablecolumns } from '../../../utils/tableColumns/categories-table-columns';
+import { useCategoria } from './hooks/useCategoria';
 
 export const CadastroCategoriaPage = () => {
+  const { categorias, isFetchingCategorias } = useCategoria();
+
   return (
     <>
       <BaseContainer>
-        <CadastroBaseContainer pagina="categoria" columns={TransactionTablecolumns}></CadastroBaseContainer>
+        <CadastroBaseContainer
+          searchText="categoria"
+          buttonText="Nova Categoria"
+          title="Listagem de Categorias"
+          columns={CategoriesTablecolumns}
+          data={categorias}
+          isFetching={isFetchingCategorias}
+        ></CadastroBaseContainer>
       </BaseContainer>
     </>
   );

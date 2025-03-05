@@ -5,7 +5,7 @@ import useHomePage from './hooks/useHomePage';
 import SummaryCardsSection from './components/SummaryCardsSection';
 import AssideCardsSection from './components/AssideCardsSection';
 import { Plus } from 'lucide-react';
-import { TransactionTablecolumns } from '../../utils/TransactionTableColumns';
+import { TransactionsTablecolumns } from '../../utils/tableColumns/transactions-table-columns';
 
 export const HomePage = () => {
   const { summary, isFetchingSummary, transactions, isFetchingTransactions, isFetchedTransactions } = useHomePage();
@@ -32,7 +32,7 @@ export const HomePage = () => {
               <Row className="w-full row-span-">
                 <Card title="Últimas Transações" subtitle="Listagem de Entradas e Saídas">
                   <Table
-                    columns={TransactionTablecolumns}
+                    columns={TransactionsTablecolumns}
                     dataSource={isFetchedTransactions && transactions}
                     loading={isFetchingTransactions}
                     size="small"

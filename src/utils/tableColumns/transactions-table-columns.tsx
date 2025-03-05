@@ -1,7 +1,7 @@
 import { ArrowUp, ArrowDown } from 'lucide-react';
 import { TransactionModel } from '../../models';
 
-export const TransactionTablecolumns = [
+export const TransactionsTablecolumns = [
   {
     title: 'Data',
     dataIndex: 'dataPedido',

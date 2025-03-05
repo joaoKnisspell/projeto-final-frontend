@@ -24,7 +24,7 @@ function App() {
               rowHoverBg: '#171821',
             },
             Input: {
-              colorText: '#87888c',
+              colorText: '#ffffff',
             },
           },
         }}
