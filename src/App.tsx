@@ -10,6 +10,7 @@ function App() {
         theme={{
           token: {
             colorBgContainer: 'transparent',
+            colorTextPlaceholder: '#87888c',
           },
           components: {
             Table: {
@@ -21,6 +22,9 @@ function App() {
               colorIcon: '#87888c',
               expandIconBg: '#87888c',
               rowHoverBg: '#171821',
+            },
+            Input: {
+              colorText: '#87888c',
             },
           },
         }}

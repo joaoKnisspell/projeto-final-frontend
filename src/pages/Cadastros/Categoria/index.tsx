@@ -6,7 +6,7 @@ export const CadastroCategoriaPage = () => {
   return (
     <>
       <BaseContainer>
-        <CadastroBaseContainer columns={TransactionTablecolumns}></CadastroBaseContainer>
+        <CadastroBaseContainer pagina="categoria" columns={TransactionTablecolumns}></CadastroBaseContainer>
       </BaseContainer>
     </>
   );
