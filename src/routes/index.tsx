@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
-import { TransactionsPage, HomePage, ReportsPage, CadastroCategoriaPage } from '../pages';
+import { HomePage, ReportsPage, CadastroCategoriaPage, CadastroProdutoPage, CadastroTransactionPage } from '../pages';
 
 export const Router = () => {
   return (
@@ -7,7 +7,8 @@ export const Router = () => {
       <Routes>
         <Route path="/" Component={HomePage} />
         <Route path="/categorias" Component={CadastroCategoriaPage} />
-        <Route path="/transacoes" Component={TransactionsPage} />
+        <Route path="/produtos" Component={CadastroProdutoPage} />
+        <Route path="/transacoes" Component={CadastroTransactionPage} />
         <Route path="/relatorios" Component={ReportsPage} />
       </Routes>
     </BrowserRouter>

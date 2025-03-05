@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { GerenciamentoService } from '../../../services/gerenciamento/gerenciamento-service';
-import { PedidosService } from '../../../services/pedidos/pedidos-service';
+import { TransactionsService } from '../../../services/transactions/transactions-service';
 export default function useHomePage() {
   const { data: summary, isFetching: isFetchingSummary } = useQuery({
     queryKey: ['gerenciamento-resumo'],
@@ -22,7 +22,7 @@ export default function useHomePage() {
   } = useQuery({
     queryKey: [],
     queryFn: async () => {
-      const { data } = await PedidosService.GetAll();
+      const { data } = await TransactionsService.GetAll();
       if (data) {
         return data.data;
       }

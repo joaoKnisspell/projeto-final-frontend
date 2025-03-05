@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
+import { ProdutosService } from '../../../../services/produtos/produtos-service';
 
 export const useProduto = () => {
-  const getProdutos = async () => {
+  const getProducts = async () => {
     try {
       const { data } = await ProdutosService.GetAll();
       if (data) {
@@ -19,7 +20,7 @@ export const useProduto = () => {
     isFetched: isFetchedProdutos,
   } = useQuery({
     queryKey: ['listagem-produtos'],
-    queryFn: getProdutos,
+    queryFn: getProducts,
     enabled: true,
   });
 

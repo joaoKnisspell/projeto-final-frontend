@@ -4,7 +4,7 @@ import Card from '../Card/Card';
 type CadastroBaseContainerProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   columns: any;
-  searchText: 'categoria' | 'produto' | 'pedido';
+  searchText: 'categoria' | 'produto' | 'transação';
   title: string;
   buttonText: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -29,7 +29,7 @@ export default function CadastroBaseContainer({
     <section className="max-w-[983px] w-full flex flex-col gap-4">
       <header className="flex items-center gap-4">
         <div className="w-full">
-          <Input style={inputStyle} placeholder={`Pesquisar ${searchText}...`} />
+          <Input style={inputStyle} placeholder={`Pesquisar ${searchText} por data...`} />
         </div>
         <div>
           <Button style={{ ...inputStyle, color: '#87888c' }}>
