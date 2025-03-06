@@ -22,7 +22,10 @@ export default function useHomePage() {
   } = useQuery({
     queryKey: [],
     queryFn: async () => {
-      const { data } = await TransactionsService.GetAll();
+      const criteria = {
+        pageSize: 5,
+      };
+      const { data } = await TransactionsService.GetAll(criteria);
       if (data) {
         return data.data;
       }

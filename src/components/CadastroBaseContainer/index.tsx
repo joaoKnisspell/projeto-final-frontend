@@ -1,48 +1,58 @@
-import { Button, Input, Table } from 'antd';
+import { Button, Drawer, Form, Input, Table } from 'antd';
 import { Plus } from 'lucide-react';
 import Card from '../Card/Card';
-type CadastroBaseContainerProps = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  columns: any;
-  searchText: 'categoria' | 'produto' | 'transação';
-  title: string;
-  buttonText: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data: any;
-  isFetching: boolean;
-};
+import { useState } from 'react';
+import { CadastroBaseContainerModel } from '../../models';
 
-export default function CadastroBaseContainer({
-  columns,
-  searchText,
-  title,
-  buttonText,
-  data,
-  isFetching,
-}: CadastroBaseContainerProps) {
+export default function CadastroBaseContainer(props: CadastroBaseContainerModel) {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
   const inputStyle = {
     backgroundColor: '#21222d',
     border: 'none',
+  };
+
+  const handleOpenModal = () => {
+    setIsDrawerOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsDrawerOpen(false);
   };
 
   return (
     <section className="max-w-[983px] w-full flex flex-col gap-4">
       <header className="flex items-center gap-4">
         <div className="w-full">
-          <Input style={inputStyle} placeholder={`Pesquisar ${searchText} por data...`} />
+          <Input style={inputStyle} placeholder={`Pesquisar ${props.searchText} por data...`} />
         </div>
         <div>
-          <Button style={{ ...inputStyle, color: '#87888c' }}>
-            <span>{buttonText}</span>
+          <Button onClick={handleOpenModal} style={{ ...inputStyle, color: '#87888c' }}>
+            <span>{props.buttonText}</span>
             <Plus size={20} />
           </Button>
         </div>
       </header>
       <main className="h-full">
-        <Card title={title}>
-          <Table columns={columns} dataSource={data} loading={isFetching} size="middle" className="h-full" />
+        <Card title={props.title}>
+          <Table
+            columns={props.columns}
+            dataSource={props.data}
+            loading={props.isFetchingData}
+            size="middle"
+            className="h-full"
+          />
         </Card>
       </main>
+      <Drawer
+        className="text-white"
+        title={`Novo(a) ${props.drawerTitle}`}
+        open={isDrawerOpen}
+        onClose={handleCloseModal}
+        closable
+      >
+        <Form>{props.drawerForm}</Form>
+      </Drawer>
     </section>
   );
 }

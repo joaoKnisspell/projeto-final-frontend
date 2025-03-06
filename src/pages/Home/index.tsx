@@ -1,6 +1,6 @@
 import { BaseContainer } from '../../components/BaseContainer';
 import Card from '../../components/Card/Card';
-import { Row, Col, Table, Spin, Pagination } from 'antd';
+import { Row, Col, Table, Spin } from 'antd';
 import useHomePage from './hooks/useHomePage';
 import SummaryCardsSection from './components/SummaryCardsSection';
 import AssideCardsSection from './components/AssideCardsSection';
@@ -36,7 +36,7 @@ export const HomePage = () => {
                   loading={isFetchingTransactions}
                   size="small"
                   className="w-full"
-                  pagination={{ defaultPageSize: 5, showSizeChanger: false, showPrevNextJumpers: false }}
+                  pagination={false}
                 />
               </Card>
             </Row>

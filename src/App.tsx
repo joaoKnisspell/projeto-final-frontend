@@ -10,7 +10,10 @@ function App() {
         theme={{
           token: {
             colorBgContainer: 'transparent',
+            colorBgElevated: '#171821',
             colorTextPlaceholder: '#87888c',
+            colorIcon: '#ffffff',
+            colorIconHover: '#feb95a',
           },
           components: {
             Table: {
