@@ -2,7 +2,7 @@ import { api } from '../api';
 import { endpoints } from '../endpoints';
 
 export const TransactionsService = {
-  async GetAll(criteria: any) {
+  async GetAll(criteria?: any) {
     return await api.get(endpoints.transactions.get, { params: criteria });
   },
   async Post(transacao: any) {
