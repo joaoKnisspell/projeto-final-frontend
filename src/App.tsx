@@ -14,6 +14,7 @@ function App() {
             colorTextPlaceholder: '#87888c',
             colorIcon: '#ffffff',
             colorIconHover: '#feb95a',
+            controlOutlineWidth: 0,
           },
           components: {
             Table: {
@@ -28,6 +29,10 @@ function App() {
             },
             Input: {
               colorText: '#ffffff',
+              colorBorder: 'transparent',
+            },
+            Select: {
+              colorBorder: 'transparent',
             },
           },
         }}
