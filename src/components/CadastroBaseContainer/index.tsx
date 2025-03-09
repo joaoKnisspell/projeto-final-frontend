@@ -1,4 +1,4 @@
-import { Button, Drawer, Form, Input, Row, Table } from 'antd';
+import { Button, Drawer, Form, Input, Table } from 'antd';
 import { Plus } from 'lucide-react';
 import Card from '../Card/Card';
 import { useState } from 'react';
@@ -41,6 +41,12 @@ export default function CadastroBaseContainer(props: CadastroBaseContainerModel)
             loading={props.isFetchingData}
             size="middle"
             className="h-full"
+            pagination={{
+              showSizeChanger: true,
+              pageSizeOptions: [5, 10],
+              total: props.totalPages,
+              onChange: (page: number, pageSize: number) => props.pageAction(page, pageSize),
+            }}
           />
         </Card>
       </main>

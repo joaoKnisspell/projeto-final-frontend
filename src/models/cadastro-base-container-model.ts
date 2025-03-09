@@ -11,4 +11,6 @@ export type CadastroBaseContainerModel = {
   isFetchingData: boolean;
   drawerTitle: string;
   drawerForm: ReactNode;
+  totalPages: number;
+  pageAction: (page: number, pageSize: number) => void;
 };

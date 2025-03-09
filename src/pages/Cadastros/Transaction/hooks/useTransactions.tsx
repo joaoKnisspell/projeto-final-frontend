@@ -1,13 +1,33 @@
 import { useQuery } from '@tanstack/react-query';
 import { TransactionsService } from '../../../../services/transactions/transactions-service';
-import { Form, Input, Row, Select } from 'antd';
+import { Form, Input, Select } from 'antd';
 import Label from '../../../../components/Label';
+import { useState } from 'react';
 
 export const useTransaction = () => {
+  const [pageInfo, setPageInfo] = useState({
+    page: 1,
+    pageSize: 10,
+  });
+  const [totalPages, setTotalPages] = useState(0);
+
+  const handlePageAction = (page: number, pageSize: number) => {
+    setPageInfo({
+      page,
+      pageSize,
+    });
+  };
+
   const getTransactions = async () => {
+    const criteria = {
+      page: pageInfo.page,
+      pageSize: pageInfo.pageSize,
+    };
+
     try {
-      const { data } = await TransactionsService.GetAll();
+      const { data } = await TransactionsService.GetAll(criteria);
       if (data) {
+        setTotalPages(data.total);
         return data.data;
       }
       return null;
@@ -21,7 +41,7 @@ export const useTransaction = () => {
     isFetching: isFetchingTransactions,
     isFetched: isFetchedTransactions,
   } = useQuery({
-    queryKey: ['transactions-list'],
+    queryKey: ['transactions-list', { pageInfo }],
     queryFn: getTransactions,
     enabled: true,
   });
@@ -52,6 +72,9 @@ export const useTransaction = () => {
     transactions,
     isFetchingTransactions,
     isFetchedTransactions,
+    pageInfo,
+    totalPages,
     drawerForm,
+    handlePageAction,
   };
 };

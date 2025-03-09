@@ -5,7 +5,7 @@ import { useTransaction } from './hooks/useTransactions';
 import { CadastroBaseContainerModel } from '../../../models';
 
 export const CadastroTransactionPage = () => {
-  const { transactions, isFetchingTransactions, drawerForm } = useTransaction();
+  const { transactions, isFetchingTransactions, totalPages, drawerForm, handlePageAction } = useTransaction();
 
   const CadastroProps: CadastroBaseContainerModel = {
     searchText: 'transação',
@@ -15,7 +15,9 @@ export const CadastroTransactionPage = () => {
     data: transactions,
     isFetchingData: isFetchingTransactions,
     drawerTitle: 'Transação',
+    totalPages,
     drawerForm: drawerForm(),
+    pageAction: handlePageAction,
   };
 
   return (
