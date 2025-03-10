@@ -1,10 +1,12 @@
-import { Button, Drawer, Form, Input, Row, Select, Table } from 'antd';
+import { Button, Drawer, Form, Input, Row, Table } from 'antd';
 import { Plus } from 'lucide-react';
 import Card from '../Card/Card';
 import { useState } from 'react';
 import { CadastroBaseContainerModel } from '../../models';
 import Label from '../Label';
-import BaseSelect from '../Input/BaseSelect';
+import BaseSelect from '../Select/BaseSelect';
+import { useForm } from 'antd/es/form/Form';
+import TipoTransacaoSelect from '../../pages/Cadastros/components/TipoTransacaoSelect';
 
 export default function CadastroBaseContainer({
   title,
@@ -20,6 +22,7 @@ export default function CadastroBaseContainer({
   type,
 }: CadastroBaseContainerModel) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [registerForm] = useForm();
 
   const inputStyle = {
     backgroundColor: '#21222d',
@@ -32,6 +35,7 @@ export default function CadastroBaseContainer({
 
   const handleCloseModal = () => {
     setIsDrawerOpen(false);
+    registerForm.resetFields();
   };
 
   return (
@@ -71,15 +75,23 @@ export default function CadastroBaseContainer({
         onClose={handleCloseModal}
         closable
       >
-        <Form className="text-white flex flex-col gap-8 h-full justify-between" layout="vertical">
+        <Form form={registerForm} className="text-white flex flex-col gap-8 h-full justify-between" layout="vertical">
           <section>
             {type === 'transacao' && (
               <>
-                <Form.Item label={<Label labelName="Tipo" />}>
-                  <BaseSelect placeholder="Selecione o tipo de transação" />
+                <Form.Item
+                  rules={[{ required: true, message: 'Selecione o tipo da transação.' }]}
+                  name="tipoPedido"
+                  label={<Label labelName="Tipo" />}
+                >
+                  <TipoTransacaoSelect
+                    onChange={(value: string | number) => {
+                      registerForm.setFieldValue('tipoPedido', value);
+                    }}
+                  />
                 </Form.Item>
-                <Form.Item label={<Label labelName="Produtos" />}>
-                  <BaseSelect placeholder="Selecione um ou mais produtos" />
+                <Form.Item name="produtosIds" label={<Label labelName="Produtos" />}>
+                  <TipoTransacaoSelect />
                 </Form.Item>
                 <Form.Item label={<Label labelName="Total" />}>
                   <Input
@@ -93,40 +105,39 @@ export default function CadastroBaseContainer({
           </section>
           <footer className="flex flex-col gap-4">
             <Row>
-              <Button
-                style={{
-                  backgroundColor: 'orange',
-                  border: '0px solid transparent',
-                  color: '#ffffff',
-                  boxShadow: 'none',
-                  fontWeight: '500',
-                }}
-                className="w-full"
-                onClick={handleCloseModal}
-              >
-                Cancelar
-              </Button>
+              <Form.Item style={{ marginBottom: 0 }} className="w-full">
+                <Button
+                  style={{
+                    backgroundColor: 'orange',
+                    border: '0px solid transparent',
+                    color: '#ffffff',
+                    boxShadow: 'none',
+                    fontWeight: '500',
+                  }}
+                  className="w-full"
+                  onClick={handleCloseModal}
+                >
+                  Cancelar
+                </Button>
+              </Form.Item>
             </Row>
             <Row>
-              <Button
-                style={{
-                  backgroundColor: '#20aef3',
-                  border: '0px solid transparent',
-                  color: '#ffffff',
-                  boxShadow: 'none',
-                  fontWeight: '500',
-                }}
-                className="w-full"
-                onClick={() =>
-                  mutation.mutate({
-                    dataPedido: new Date(),
-                    produtosIds: [1, 3, 9, 11],
-                    tipoPedido: 'saida',
-                  })
-                }
-              >
-                Salvar
-              </Button>
+              <Form.Item style={{ marginBottom: 0 }} className="w-full">
+                <Button
+                  htmlType="submit"
+                  style={{
+                    backgroundColor: '#20aef3',
+                    border: '0px solid transparent',
+                    color: '#ffffff',
+                    boxShadow: 'none',
+                    fontWeight: '500',
+                  }}
+                  className="w-full"
+                  onClick={() => console.log(registerForm.getFieldsValue())}
+                >
+                  Salvar
+                </Button>
+              </Form.Item>
             </Row>
           </footer>
         </Form>

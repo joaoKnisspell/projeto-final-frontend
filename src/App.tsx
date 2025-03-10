@@ -15,6 +15,7 @@ function App() {
             colorIcon: '#ffffff',
             colorIconHover: '#feb95a',
             controlOutlineWidth: 0,
+            colorText: '#ffffff',
           },
           components: {
             Table: {
@@ -33,6 +34,7 @@ function App() {
             },
             Select: {
               colorBorder: 'transparent',
+              optionSelectedBg: '#20aef3',
             },
           },
         }}
