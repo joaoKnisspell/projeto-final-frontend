@@ -7,6 +7,7 @@ import Label from '../Label';
 import BaseSelect from '../Select/BaseSelect';
 import { useForm } from 'antd/es/form/Form';
 import TipoTransacaoSelect from '../../pages/Cadastros/components/TipoTransacaoSelect';
+import ProdutosSelect from '../../pages/Cadastros/components/ProdutosSelect';
 
 export default function CadastroBaseContainer({
   title,
@@ -90,8 +91,16 @@ export default function CadastroBaseContainer({
                     }}
                   />
                 </Form.Item>
-                <Form.Item name="produtosIds" label={<Label labelName="Produtos" />}>
-                  <TipoTransacaoSelect />
+                <Form.Item
+                  rules={[{ required: true, message: 'Selecione um ou mais produtos.' }]}
+                  name="produtosIds"
+                  label={<Label labelName="Produtos" />}
+                >
+                  <ProdutosSelect
+                    onChange={(value: string | number | number[]) => {
+                      registerForm.setFieldValue('produtosIds', value);
+                    }}
+                  />
                 </Form.Item>
                 <Form.Item label={<Label labelName="Total" />}>
                   <Input

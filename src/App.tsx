@@ -35,6 +35,7 @@ function App() {
             Select: {
               colorBorder: 'transparent',
               optionSelectedBg: '#20aef3',
+              multipleItemBg: '#20aef3',
             },
           },
         }}
