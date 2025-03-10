@@ -1,4 +1,4 @@
 export type CategoriaModel = {
-  categoriaId: number;
+  categoriaId?: number;
   nome: string;
 };

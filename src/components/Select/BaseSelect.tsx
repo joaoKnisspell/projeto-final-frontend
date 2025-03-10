@@ -5,7 +5,7 @@ type SelectOptionProps = {
   value: string | number | number[];
 };
 
-type BaseInputProps = {
+type BaseSelectProps = {
   placeholder: string;
   options: SelectOptionProps[];
   onChange: (value: string | number) => void;
@@ -19,10 +19,10 @@ export default function BaseSelect({
   onChange,
   isLoading,
   multiple = undefined,
-}: BaseInputProps) {
+}: BaseSelectProps) {
   return (
     <Select
-      style={{ height: '40px' }}
+      style={{ minHeight: '40px' }}
       className="bg-dark-700 rounded-md"
       placeholder={placeholder}
       options={options}

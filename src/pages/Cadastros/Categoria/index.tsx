@@ -4,18 +4,23 @@ import { CategoriesTablecolumns } from '../../../utils/tableColumns/categories-t
 import { useCategoria } from './hooks/useCategoria';
 
 export const CadastroCategoriaPage = () => {
-  const { categorias, isFetchingCategorias } = useCategoria();
+  const { categorias, isFetchingCategorias, handlePageAction, totalPages, mutation } = useCategoria();
 
   return (
     <>
       <BaseContainer>
         <CadastroBaseContainer
+          type="categoria"
           searchText="categoria"
           buttonText="Nova Categoria"
           title="Listagem de Categorias"
           columns={CategoriesTablecolumns}
           data={categorias}
-          isFetching={isFetchingCategorias}
+          isFetchingData={isFetchingCategorias}
+          drawerTitle="Categoria"
+          pageAction={handlePageAction}
+          totalPages={totalPages}
+          mutation={mutation}
         ></CadastroBaseContainer>
       </BaseContainer>
     </>

@@ -29,10 +29,12 @@ export default function ProdutosSelect({ onChange }: ProdutosSelectProps) {
     enabled: true,
   });
 
-  const selectOptions = products.map((product: ProdutoModel) => ({
-    label: product.nome,
-    value: product.produtoId,
-  }));
+  const selectOptions =
+    products &&
+    products.map((product: ProdutoModel) => ({
+      label: product.nome,
+      value: product.produtoId,
+    }));
 
   return (
     <BaseSelect

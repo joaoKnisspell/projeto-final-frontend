@@ -1,13 +1,13 @@
 import { Button, Drawer, Form, Input, Row, Table } from 'antd';
 import { Plus } from 'lucide-react';
 import Card from '../Card/Card';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { CadastroBaseContainerModel } from '../../models';
 import Label from '../Label';
-import BaseSelect from '../Select/BaseSelect';
 import { useForm } from 'antd/es/form/Form';
 import TipoTransacaoSelect from '../../pages/Cadastros/components/TipoTransacaoSelect';
 import ProdutosSelect from '../../pages/Cadastros/components/ProdutosSelect';
+import BaseInput from '../Input/BaseInput';
 
 export default function CadastroBaseContainer({
   title,
@@ -102,12 +102,17 @@ export default function CadastroBaseContainer({
                     }}
                   />
                 </Form.Item>
-                <Form.Item label={<Label labelName="Total" />}>
-                  <Input
-                    style={{ backgroundColor: '#21222d', outline: 'none' }}
-                    className="bg-dark-700 h-10 border-0"
-                    placeholder="Valor total da transação"
-                  />
+              </>
+            )}
+
+            {type === 'categoria' && (
+              <>
+                <Form.Item
+                  rules={[{ required: true, message: 'O Nome para a categoria é obrigatório.' }]}
+                  name="nomeCategoria"
+                  label={<Label labelName="Nome" />}
+                >
+                  {/* <BaseInput placeholder="Digite o Nome" /> */}
                 </Form.Item>
               </>
             )}
