@@ -2,6 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { ProductsService } from '../../../../services/produtos/produtos-service';
 import { useState } from 'react';
 import { BaseGetAllCriteria } from '../../../../models/criterias/base-get-all.criteria';
+import { ProductRegisterFormCriteria } from '../../../../models/criterias/product-register-form.criteria';
 
 export const useProduto = () => {
   const [pageInfo, setPageInfo] = useState({
@@ -47,10 +48,15 @@ export const useProduto = () => {
 
   const mutation = useMutation({
     mutationKey: ['product-criteria'],
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    mutationFn: async (formData: any) => {
+    mutationFn: async (formData: ProductRegisterFormCriteria) => {
+      const formattedValues = {
+        nome: formData.nomeProduto,
+        valor: Number(formData.valor),
+        categoriaId: formData.categoriaId,
+      };
       try {
-        await ProductsService.Post(formData);
+        console.log(formattedValues);
+        await ProductsService.Post(formattedValues);
       } catch (err) {
         console.error(err);
       }

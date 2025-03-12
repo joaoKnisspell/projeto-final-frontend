@@ -1,4 +1,4 @@
-import { Button, Drawer, Form, Input, Row, Table } from 'antd';
+import { Button, Drawer, Form, Input, InputNumber, Row, Table } from 'antd';
 import { Plus } from 'lucide-react';
 import Card from '../Card/Card';
 import { useState } from 'react';
@@ -45,7 +45,7 @@ export default function CadastroBaseContainer({
   };
 
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    console.log(values);
+    handleCloseModal();
   };
 
   return (
@@ -139,14 +139,18 @@ export default function CadastroBaseContainer({
                   name="categoriaId"
                   label={<Label labelName="Categoria" />}
                 >
-                  <CategoriesSelect />
+                  <CategoriesSelect
+                    onChange={(value: string | number) => {
+                      registerForm.setFieldValue('categoriaId', value);
+                    }}
+                  />
                 </Form.Item>
                 <Form.Item
                   rules={[{ required: true, message: 'O Valor do produto é obrigatório.' }]}
                   name="valor"
                   label={<Label labelName="Valor" />}
                 >
-                  <Input style={BaseInputStyles} placeholder="Digite o valor do produto" />
+                  <Input type="number" style={BaseInputStyles} placeholder="Digite o valor do produto" />
                 </Form.Item>
               </>
             )}

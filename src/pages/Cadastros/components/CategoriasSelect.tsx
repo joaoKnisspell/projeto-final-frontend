@@ -3,7 +3,11 @@ import BaseSelect from '../../../components/Select/BaseSelect';
 import { CategoriesService } from '../../../services/categorias/categorias-service';
 import { CategoriesModel } from '../../../models';
 
-export default function CategoriesSelect() {
+type CategoriesSelectProps = {
+  onChange: (value: string | number) => void;
+};
+
+export default function CategoriesSelect({ onChange }: CategoriesSelectProps) {
   const { data: categories, isFetching: isFetchingCategories } = useQuery({
     queryKey: ['categories-select'],
     queryFn: async () => {
@@ -29,5 +33,12 @@ export default function CategoriesSelect() {
     value: category.categoriaId,
   }));
 
-  return <BaseSelect isLoading={isFetchingCategories} options={selectOptions} placeholder="Selecione a categoria" />;
+  return (
+    <BaseSelect
+      onChange={onChange}
+      isLoading={isFetchingCategories}
+      options={selectOptions}
+      placeholder="Selecione a categoria"
+    />
+  );
 }
