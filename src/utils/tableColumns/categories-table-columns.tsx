@@ -1,11 +1,11 @@
-import { CategoriaModel } from '../../models';
+import { CategoriesModel } from '../../models';
 
 export const CategoriesTablecolumns = [
   {
     title: 'Id',
     dataIndex: 'categoriaId',
     key: 'categoriaId',
-    render: (_: unknown, record: CategoriaModel) => <span className="font-medium">{record.categoriaId}</span>,
+    render: (_: unknown, record: CategoriesModel) => <span className="font-medium">{record.categoriaId}</span>,
   },
   {
     title: 'Nome',

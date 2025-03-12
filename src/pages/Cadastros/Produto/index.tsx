@@ -4,18 +4,23 @@ import { ProductsTablecolumns } from '../../../utils/tableColumns/products-table
 import { useProduto } from './hooks/useProduto';
 
 export const CadastroProdutoPage = () => {
-  const { produtos, isFetchingProdutos } = useProduto();
+  const { produtos, isFetchingProdutos, handlePageAction, totalPages, mutation } = useProduto();
 
   return (
     <>
       <BaseContainer>
         <CadastroBaseContainer
+          type="produto"
+          drawerTitle="Novo Produto"
           searchText="produto"
           buttonText="Nova Produto"
           title="Listagem de Produtos"
           columns={ProductsTablecolumns}
           data={produtos}
-          isFetching={isFetchingProdutos}
+          isFetchingData={isFetchingProdutos}
+          totalPages={totalPages}
+          pageAction={handlePageAction}
+          mutation={mutation}
         ></CadastroBaseContainer>
       </BaseContainer>
     </>

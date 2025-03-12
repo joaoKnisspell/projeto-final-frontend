@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import BaseSelect from '../../../components/Select/BaseSelect';
-import { ProdutosService } from '../../../services/produtos/produtos-service';
+import { ProductsService } from '../../../services/produtos/produtos-service';
 import { ProdutoModel } from '../../../models';
 
 type ProdutosSelectProps = {
@@ -9,7 +9,7 @@ type ProdutosSelectProps = {
 
 export default function ProdutosSelect({ onChange }: ProdutosSelectProps) {
   const { data: products, isFetching: isFetchingProducts } = useQuery({
-    queryKey: ['all-products'],
+    queryKey: ['products-select'],
     queryFn: async () => {
       const criteria = {
         page: 1,
@@ -17,7 +17,7 @@ export default function ProdutosSelect({ onChange }: ProdutosSelectProps) {
       };
 
       try {
-        const { data } = await ProdutosService.GetAll(criteria);
+        const { data } = await ProductsService.GetAll(criteria);
         if (data) {
           return data.data;
         }

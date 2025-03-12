@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { CategoriasService } from '../../../../services/categorias/categorias-service';
+import { CategoriesService } from '../../../../services/categorias/categorias-service';
 import { useState } from 'react';
 import { CategoryCriteria } from '../../../../models/criterias/category.criteria';
 import { toast } from 'react-toastify';
@@ -18,7 +18,7 @@ export const useCategoria = () => {
       pageSize: pageInfo.pageSize,
     };
     try {
-      const { data } = await CategoriasService.GetAll(criteria);
+      const { data } = await CategoriesService.GetAll(criteria);
       if (data) {
         setTotalPages(data.total);
         return data.data;
@@ -42,12 +42,11 @@ export const useCategoria = () => {
   const mutation = useMutation({
     mutationKey: ['category-post'],
     mutationFn: async (formData: CategoryCriteria) => {
-      console.log(formData);
       const formattedPostData = {
         nome: formData.nomeCategoria,
       };
       try {
-        await CategoriasService.Post(formattedPostData).then(() => toast.success('Categoria registrada com sucesso!'));
+        await CategoriesService.Post(formattedPostData).then(() => toast.success('Categoria registrada com sucesso!'));
       } catch (err) {
         console.error(err);
       }

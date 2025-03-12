@@ -16,7 +16,7 @@ export const CadastroTransactionPage = () => {
           title="Listagem de Transações"
           columns={TransactionsCompleteTablecolumns}
           data={transactions}
-          drawerTitle="Transação"
+          drawerTitle="Nova Transação"
           totalPages={totalPages}
           pageAction={handlePageAction}
           mutation={mutation}

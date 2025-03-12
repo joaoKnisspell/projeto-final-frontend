@@ -8,7 +8,7 @@ type SelectOptionProps = {
 type BaseSelectProps = {
   placeholder: string;
   options: SelectOptionProps[];
-  onChange: (value: string | number) => void;
+  onChange?: (value: string | number) => void;
   isLoading?: boolean;
   multiple?: 'tags' | 'multiple' | undefined;
 };

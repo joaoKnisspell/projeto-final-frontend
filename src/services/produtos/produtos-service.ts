@@ -1,8 +1,11 @@
 import { ProductsCriteria } from '../../models/criterias/products.criteria';
 import { api } from '../api';
 
-export const ProdutosService = {
+export const ProductsService = {
   async GetAll(criteria: ProductsCriteria) {
     return api.get('/produtos', { params: criteria });
+  },
+  async Post(criteria: ProductsCriteria) {
+    return api.post('/produtos', { params: criteria });
   },
 };

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { CategoriasService } from '../services/categorias/categorias-service';
+import { CategoriesService } from '../services/categorias/categorias-service';
 import { BaseContainer } from '../components/BaseContainer';
 
 export const ReportsPage = () => {
@@ -7,7 +7,7 @@ export const ReportsPage = () => {
     queryKey: ['categorias'],
     queryFn: async () => {
       try {
-        const response = await CategoriasService.GetAll();
+        const response = await CategoriesService.GetAll();
         return response;
       } catch (error) {
         console.error(error);

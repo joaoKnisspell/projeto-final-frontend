@@ -17,7 +17,7 @@ export const CadastroCategoriaPage = () => {
           columns={CategoriesTablecolumns}
           data={categorias}
           isFetchingData={isFetchingCategorias}
-          drawerTitle="Categoria"
+          drawerTitle="Nova Categoria"
           pageAction={handlePageAction}
           totalPages={totalPages}
           mutation={mutation}

@@ -1,13 +1,14 @@
 import { Button, Drawer, Form, Input, Row, Table } from 'antd';
 import { Plus } from 'lucide-react';
 import Card from '../Card/Card';
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import { CadastroBaseContainerModel } from '../../models';
 import Label from '../Label';
-import { useForm } from 'antd/es/form/Form';
+import { FormProps, useForm } from 'antd/es/form/Form';
 import TipoTransacaoSelect from '../../pages/Cadastros/components/TipoTransacaoSelect';
 import ProdutosSelect from '../../pages/Cadastros/components/ProdutosSelect';
-import BaseInput from '../Input/BaseInput';
+import { BaseInputStyles } from '../Input/BaseInputStyles';
+import CategoriesSelect from '../../pages/Cadastros/components/CategoriasSelect';
 
 export default function CadastroBaseContainer({
   title,
@@ -37,6 +38,14 @@ export default function CadastroBaseContainer({
   const handleCloseModal = () => {
     setIsDrawerOpen(false);
     registerForm.resetFields();
+  };
+
+  type FieldType = {
+    nome: string;
+  };
+
+  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+    console.log(values);
   };
 
   return (
@@ -69,14 +78,13 @@ export default function CadastroBaseContainer({
           />
         </Card>
       </main>
-      <Drawer
-        className="text-white"
-        title={`Novo(a) ${drawerTitle}`}
-        open={isDrawerOpen}
-        onClose={handleCloseModal}
-        closable
-      >
-        <Form form={registerForm} className="text-white flex flex-col gap-8 h-full justify-between" layout="vertical">
+      <Drawer className="text-white" title={drawerTitle} open={isDrawerOpen} onClose={handleCloseModal} closable>
+        <Form
+          onFinish={onFinish}
+          form={registerForm}
+          className="text-white flex flex-col gap-8 h-full justify-between"
+          layout="vertical"
+        >
           <section>
             {type === 'transacao' && (
               <>
@@ -112,7 +120,33 @@ export default function CadastroBaseContainer({
                   name="nomeCategoria"
                   label={<Label labelName="Nome" />}
                 >
-                  {/* <BaseInput placeholder="Digite o Nome" /> */}
+                  <Input style={BaseInputStyles} placeholder="Digite o nome para a categoria" />
+                </Form.Item>
+              </>
+            )}
+
+            {type === 'produto' && (
+              <>
+                <Form.Item
+                  rules={[{ required: true, message: 'O Nome do produto é obrigatório.' }]}
+                  name="nomeProduto"
+                  label={<Label labelName="Nome" />}
+                >
+                  <Input style={BaseInputStyles} placeholder="Digite o nome para o produto" />
+                </Form.Item>
+                <Form.Item
+                  rules={[{ required: true, message: 'Selecione a categoria do produto.' }]}
+                  name="categoriaId"
+                  label={<Label labelName="Categoria" />}
+                >
+                  <CategoriesSelect />
+                </Form.Item>
+                <Form.Item
+                  rules={[{ required: true, message: 'O Valor do produto é obrigatório.' }]}
+                  name="valor"
+                  label={<Label labelName="Valor" />}
+                >
+                  <Input style={BaseInputStyles} placeholder="Digite o valor do produto" />
                 </Form.Item>
               </>
             )}
@@ -147,7 +181,6 @@ export default function CadastroBaseContainer({
                     fontWeight: '500',
                   }}
                   className="w-full"
-                  onClick={() => console.log(registerForm.getFieldsValue())}
                 >
                   Salvar
                 </Button>
