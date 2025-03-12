@@ -1,4 +1,4 @@
-import { Button, Drawer, Form, Input, InputNumber, Row, Table } from 'antd';
+import { Button, Drawer, Form, Input, Row, Table } from 'antd';
 import { Plus } from 'lucide-react';
 import Card from '../Card/Card';
 import { useState } from 'react';
@@ -9,6 +9,7 @@ import TipoTransacaoSelect from '../../pages/Cadastros/components/TipoTransacaoS
 import ProdutosSelect from '../../pages/Cadastros/components/ProdutosSelect';
 import { BaseInputStyles } from '../Input/BaseInputStyles';
 import CategoriesSelect from '../../pages/Cadastros/components/CategoriasSelect';
+import { ToastContainer } from 'react-toastify';
 
 export default function CadastroBaseContainer({
   title,
@@ -45,6 +46,7 @@ export default function CadastroBaseContainer({
   };
 
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+    mutation.mutate(values);
     handleCloseModal();
   };
 
@@ -193,6 +195,7 @@ export default function CadastroBaseContainer({
           </footer>
         </Form>
       </Drawer>
+      <ToastContainer autoClose={3000} theme="dark" />
     </section>
   );
 }

@@ -7,6 +7,6 @@ export const ProductsService = {
     return api.get('/produtos', { params: criteria });
   },
   async Post(criteria: ProductPostCriteria) {
-    return api.post('/produtos', { params: criteria });
+    return api.post('/produtos', criteria);
   },
 };

@@ -3,6 +3,7 @@ import { ProductsService } from '../../../../services/produtos/produtos-service'
 import { useState } from 'react';
 import { BaseGetAllCriteria } from '../../../../models/criterias/base-get-all.criteria';
 import { ProductRegisterFormCriteria } from '../../../../models/criterias/product-register-form.criteria';
+import { toast } from 'react-toastify';
 
 export const useProduto = () => {
   const [pageInfo, setPageInfo] = useState({
@@ -41,7 +42,7 @@ export const useProduto = () => {
     isFetching: isFetchingProdutos,
     isFetched: isFetchedProdutos,
   } = useQuery({
-    queryKey: ['listagem-produtos'],
+    queryKey: ['listagem-produtos', { pageInfo }],
     queryFn: getProducts,
     enabled: true,
   });
@@ -55,10 +56,12 @@ export const useProduto = () => {
         categoriaId: formData.categoriaId,
       };
       try {
-        console.log(formattedValues);
-        await ProductsService.Post(formattedValues);
+        await ProductsService.Post(formattedValues).then(() => {
+          toast.success('Produto registrado com sucesso!');
+        });
       } catch (err) {
         console.error(err);
+        toast.error('Erro ao registrar produto!');
       }
     },
   });
