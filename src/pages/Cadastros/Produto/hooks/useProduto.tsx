@@ -47,7 +47,8 @@ export const useProduto = () => {
     enabled: true,
   });
 
-  const mutation = useMutation({
+  const { mutate, isError } = useMutation({
+    // const {mutation} = useMutation({
     mutationKey: ['product-criteria'],
     mutationFn: async (formData: ProductRegisterFormCriteria) => {
       const formattedValues = {
@@ -55,23 +56,27 @@ export const useProduto = () => {
         valor: Number(formData.valor),
         categoriaId: formData.categoriaId,
       };
-      try {
-        await ProductsService.Post(formattedValues).then(() => {
-          toast.success('Produto registrado com sucesso!');
-        });
-      } catch (err) {
-        console.error(err);
-        toast.error('Erro ao registrar produto!');
-      }
+      // try {
+      //   await ProductsService.Post(formattedValues).then(() => {
+      //     toast.success('Produto registrado com sucesso!');
+      //   });
+      // } catch (err) {
+      //   console.error(err);
+      //   toast.error('Erro ao registrar produto!');
+      // }
+      await ProductsService.Post(formattedValues);
     },
   });
+
+  console.log(isError);
 
   return {
     totalPages,
     produtos,
     isFetchingProdutos,
     isFetchedProdutos,
-    mutation,
+    // mutation,
+    mutate,
     handlePageAction,
   };
 };

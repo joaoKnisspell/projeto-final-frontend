@@ -12,5 +12,5 @@ export type CadastroBaseContainerModel = {
   totalPages: number;
   pageAction: (page: number, pageSize: number) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  mutation: any;
+  mutate: any;
 };

@@ -19,7 +19,7 @@ export default function CadastroBaseContainer({
   data,
   drawerTitle,
   isFetchingData,
-  mutation,
+  mutate,
   pageAction,
   totalPages,
   type,
@@ -46,7 +46,7 @@ export default function CadastroBaseContainer({
   };
 
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    mutation.mutate(values);
+    mutate(values);
     handleCloseModal();
   };
 

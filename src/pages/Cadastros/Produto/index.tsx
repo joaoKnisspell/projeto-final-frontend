@@ -4,7 +4,7 @@ import { ProductsTablecolumns } from '../../../utils/tableColumns/products-table
 import { useProduto } from './hooks/useProduto';
 
 export const CadastroProdutoPage = () => {
-  const { produtos, isFetchingProdutos, handlePageAction, totalPages, mutation } = useProduto();
+  const { produtos, isFetchingProdutos, handlePageAction, totalPages, mutate } = useProduto();
 
   return (
     <>
@@ -20,7 +20,7 @@ export const CadastroProdutoPage = () => {
           isFetchingData={isFetchingProdutos}
           totalPages={totalPages}
           pageAction={handlePageAction}
-          mutation={mutation}
+          mutate={mutate}
         ></CadastroBaseContainer>
       </BaseContainer>
     </>
