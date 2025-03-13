@@ -18,7 +18,7 @@ export const ReportsPage = () => {
 
   return (
     <>
-      <BaseContainer>
+      <BaseContainer key="reports-page">
         <h1>Hello World from Transactions Page!</h1>
       </BaseContainer>
     </>

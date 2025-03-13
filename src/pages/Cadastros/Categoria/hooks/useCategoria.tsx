@@ -44,6 +44,7 @@ export const useCategoria = () => {
       };
       try {
         await CategoriesService.Post(formattedPostData).then(() => toast.success('Categoria registrada com sucesso!'));
+        handleCloseModal();
       } catch (err) {
         console.error(err);
         toast.error('Erro ao registrar categoria!');

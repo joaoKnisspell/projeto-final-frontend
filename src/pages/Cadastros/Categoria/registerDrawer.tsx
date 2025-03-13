@@ -2,22 +2,23 @@ import { Drawer, Input, Row, Button, Form } from 'antd';
 import { BaseInputStyles } from '../../../components/Input/BaseInputStyles';
 import Label from '../../../components/Label';
 import { useForm } from 'antd/es/form/Form';
-import { useCategoria } from './hooks/useCategoria';
 
 type RegisterDrawerProps = {
   isDrawerOpen: boolean;
   handleCloseModal: () => void;
+  mutation: any;
 };
 
-export default function RegisterDrawer({ isDrawerOpen, handleCloseModal }: RegisterDrawerProps) {
-  const { mutation } = useCategoria();
-
+export default function RegisterDrawer({ isDrawerOpen, handleCloseModal, mutation }: RegisterDrawerProps) {
   const [registerForm] = useForm();
 
   return (
     <Drawer className="text-white" title={'Nova Categoria'} open={isDrawerOpen} onClose={handleCloseModal} closable>
       <Form
-        onFinish={() => mutation.mutate(registerForm.getFieldsValue())}
+        onFinish={() => {
+          mutation.mutate(registerForm.getFieldsValue());
+          registerForm.resetFields();
+        }}
         form={registerForm}
         className="text-white flex flex-col gap-8 h-full justify-between"
         layout="vertical"

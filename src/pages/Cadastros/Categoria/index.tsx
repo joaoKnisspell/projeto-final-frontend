@@ -13,6 +13,7 @@ export const CadastroCategoriaPage = () => {
     isFetchingCategorias,
     totalPages,
     isRegisterDrawerOpen,
+    mutation,
     handlePageAction,
     handleCloseModal,
     handleOpenModal,
@@ -24,7 +25,7 @@ export const CadastroCategoriaPage = () => {
   };
 
   return (
-    <BaseContainer>
+    <BaseContainer key="category-register-page">
       <section className="max-w-[983px] w-full flex flex-col gap-4">
         <header className="flex items-center gap-4">
           <div className="w-full">
@@ -38,7 +39,7 @@ export const CadastroCategoriaPage = () => {
           </div>
         </header>
         <main className="h-full">
-          <Card title="Listagem de Categorias">
+          <Card key="category-register-drawer" title="Listagem de Categorias">
             <Table
               columns={CategoriesTablecolumns}
               dataSource={categorias}
@@ -54,7 +55,7 @@ export const CadastroCategoriaPage = () => {
             />
           </Card>
         </main>
-        <RegisterDrawer isDrawerOpen={isRegisterDrawerOpen} handleCloseModal={handleCloseModal} />
+        <RegisterDrawer mutation={mutation} isDrawerOpen={isRegisterDrawerOpen} handleCloseModal={handleCloseModal} />
         <ToastContainer autoClose={3000} theme="dark" />
       </section>
     </BaseContainer>

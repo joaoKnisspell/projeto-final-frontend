@@ -3,15 +3,14 @@ import { ProductsService } from '../../../../services/produtos/produtos-service'
 import { useState } from 'react';
 import { BaseGetAllCriteria } from '../../../../models/criterias/base-get-all.criteria';
 import { ProductRegisterFormCriteria } from '../../../../models/criterias/product-register-form.criteria';
-import { toast } from 'react-toastify';
 
 export const useProduto = () => {
   const [pageInfo, setPageInfo] = useState({
     page: 1,
     pageSize: 10,
   });
-
   const [totalPages, setTotalPages] = useState(0);
+  const [isRegisterDrawerOpen, setIsRegisterDrawerOpen] = useState(false);
 
   const handlePageAction = (page: number, pageSize: number) => {
     setPageInfo({
@@ -38,16 +37,16 @@ export const useProduto = () => {
   };
 
   const {
-    data: produtos,
-    isFetching: isFetchingProdutos,
-    isFetched: isFetchedProdutos,
+    data: products,
+    isFetching: isFetchingProducts,
+    isFetched: isFetchedProducts,
   } = useQuery({
     queryKey: ['listagem-produtos', { pageInfo }],
     queryFn: getProducts,
     enabled: true,
   });
 
-  const { mutate, isError } = useMutation({
+  const mutation = useMutation({
     // const {mutation} = useMutation({
     mutationKey: ['product-criteria'],
     mutationFn: async (formData: ProductRegisterFormCriteria) => {
@@ -68,15 +67,23 @@ export const useProduto = () => {
     },
   });
 
-  console.log(isError);
+  const handleCloseModal = () => {
+    setIsRegisterDrawerOpen(false);
+  };
+
+  const handleOpenModal = () => {
+    setIsRegisterDrawerOpen(true);
+  };
 
   return {
     totalPages,
-    produtos,
-    isFetchingProdutos,
-    isFetchedProdutos,
-    // mutation,
-    mutate,
+    products,
+    isFetchingProducts,
+    isFetchedProducts,
+    mutation,
+    isRegisterDrawerOpen,
     handlePageAction,
+    handleCloseModal,
+    handleOpenModal,
   };
 };

@@ -11,12 +11,16 @@ export const HomePage = () => {
   const { summary, isFetchingSummary, transactions, isFetchingTransactions, isFetchedTransactions } = useHomePage();
 
   return (
-    <BaseContainer>
+    <BaseContainer key="home-page">
       <div className="grid grid-cols-3 gap-4 max-w-[983px] w-full">
         <section className="col-span-2 grid grid-rows-3 gap-4 w-[650px]">
           <Row className="row-span-1 w-full">
             <Col className="w-full flex">
-              <Card title="Gerenciamento" subtitle={`${new Date().toLocaleString('pt-BR')}`}>
+              <Card
+                key="dashboard-summary-cards"
+                title="Gerenciamento"
+                subtitle={`${new Date().toLocaleString('pt-BR')}`}
+              >
                 {isFetchingSummary ? (
                   <Row className="flex items-center justify-center w-full">
                     <Spin />
@@ -29,7 +33,11 @@ export const HomePage = () => {
           </Row>
           <Row className="row-span-2 w-full grid grid-rows-1 gap-4">
             <Row className="w-full row-span-">
-              <Card title="Últimas Transações" subtitle="Listagem de Entradas e Saídas">
+              <Card
+                key="transactions-dashboard-list"
+                title="Últimas Transações"
+                subtitle="Listagem de Entradas e Saídas"
+              >
                 <Table
                   columns={TransactionsTablecolumns}
                   dataSource={isFetchedTransactions && transactions}
@@ -41,7 +49,7 @@ export const HomePage = () => {
               </Card>
             </Row>
             <Row className="row-span-1 w-full">
-              <Card title="Menu Rápido">
+              <Card key="dashboard-actions-menu" title="Menu Rápido">
                 <div className="flex justify-around items-center">
                   <div className="relative flex items-center justify-center bg-dark-900 w-fit p-4 rounded-[10px] cursor-pointer font-medium text-orange">
                     <h5>Cadastrar Categoria</h5>
