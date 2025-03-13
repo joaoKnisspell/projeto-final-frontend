@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import BaseSelect from '../../../components/Select/BaseSelect';
-import { ProductsService } from '../../../services/produtos/produtos-service';
-import { ProdutoModel } from '../../../models';
+import { ProdutoModel } from '../../models';
+import { ProductsService } from '../../services/produtos/produtos-service';
+import BaseSelect from '../BaseSelect/BaseSelect';
 
 type ProdutosSelectProps = {
   onChange: (value: string | number) => void;

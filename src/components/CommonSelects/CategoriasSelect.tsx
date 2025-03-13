@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import BaseSelect from '../../../components/Select/BaseSelect';
-import { CategoriesService } from '../../../services/categorias/categorias-service';
-import { CategoriesModel } from '../../../models';
+import BaseSelect from '../BaseSelect/BaseSelect';
+import { CategoriesService } from '../../services/categorias/categorias-service';
+import { CategoriesModel } from '../../models';
 
 type CategoriesSelectProps = {
   onChange: (value: string | number) => void;

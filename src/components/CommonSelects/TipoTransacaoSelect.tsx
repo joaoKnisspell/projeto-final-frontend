@@ -1,4 +1,4 @@
-import BaseSelect from '../../../components/Select/BaseSelect';
+import BaseSelect from '../BaseSelect/BaseSelect';
 
 type TipoTransacaoSelectProps = {
   onChange: (value: string | number) => void;

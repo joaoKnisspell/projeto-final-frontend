@@ -5,10 +5,10 @@ import { useState } from 'react';
 import { CadastroBaseContainerModel } from '../../models';
 import Label from '../Label';
 import { FormProps, useForm } from 'antd/es/form/Form';
-import TipoTransacaoSelect from '../../pages/Cadastros/components/TipoTransacaoSelect';
-import ProdutosSelect from '../../pages/Cadastros/components/ProdutosSelect';
+import TipoTransacaoSelect from '../CommonSelects/TipoTransacaoSelect';
+import ProdutosSelect from '../CommonSelects/ProdutosSelect';
 import { BaseInputStyles } from '../Input/BaseInputStyles';
-import CategoriesSelect from '../../pages/Cadastros/components/CategoriasSelect';
+import CategoriesSelect from '../CommonSelects/CategoriasSelect';
 import { ToastContainer } from 'react-toastify';
 
 export default function CadastroBaseContainer({

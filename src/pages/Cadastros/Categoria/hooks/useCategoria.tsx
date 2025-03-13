@@ -11,6 +11,7 @@ export const useCategoria = () => {
     pageSize: 10,
   });
   const [totalPages, setTotalPages] = useState(0);
+  const [isRegisterDrawerOpen, setIsRegisterDrawerOpen] = useState(false);
 
   const getCategorias = async () => {
     const criteria: BaseGetAllCriteria = {
@@ -29,11 +30,7 @@ export const useCategoria = () => {
     }
   };
 
-  const {
-    data: categorias,
-    isFetching: isFetchingCategorias,
-    isFetched: isFetchedCategorias,
-  } = useQuery({
+  const { data: categorias, isFetching: isFetchingCategorias } = useQuery({
     queryKey: ['listagem-categorias'],
     queryFn: getCategorias,
     enabled: true,
@@ -49,6 +46,7 @@ export const useCategoria = () => {
         await CategoriesService.Post(formattedPostData).then(() => toast.success('Categoria registrada com sucesso!'));
       } catch (err) {
         console.error(err);
+        toast.error('Erro ao registrar categoria!');
       }
     },
   });
@@ -60,13 +58,22 @@ export const useCategoria = () => {
     });
   };
 
+  const handleCloseModal = () => {
+    setIsRegisterDrawerOpen(false);
+  };
+
+  const handleOpenModal = () => {
+    setIsRegisterDrawerOpen(true);
+  };
+
   return {
     totalPages,
-    pageInfo,
     categorias,
     isFetchingCategorias,
-    isFetchedCategorias,
-    handlePageAction,
     mutation,
+    isRegisterDrawerOpen,
+    handlePageAction,
+    handleCloseModal,
+    handleOpenModal,
   };
 };
