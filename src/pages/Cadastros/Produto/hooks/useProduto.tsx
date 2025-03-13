@@ -3,6 +3,7 @@ import { ProductsService } from '../../../../services/produtos/produtos-service'
 import { useState } from 'react';
 import { BaseGetAllCriteria } from '../../../../models/criterias/base-get-all.criteria';
 import { ProductRegisterFormCriteria } from '../../../../models/criterias/product-register-form.criteria';
+import { toast } from 'react-toastify';
 
 export const useProduto = () => {
   const [pageInfo, setPageInfo] = useState({
@@ -19,35 +20,33 @@ export const useProduto = () => {
     });
   };
 
-  const getProducts = async () => {
-    const criteria: BaseGetAllCriteria = {
-      page: pageInfo.page,
-      pageSize: pageInfo.pageSize,
-    };
-    try {
-      const { data } = await ProductsService.GetAll(criteria);
-      if (data) {
-        setTotalPages(data.total);
-        return data.data;
-      }
-      return null;
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   const {
     data: products,
     isFetching: isFetchingProducts,
     isFetched: isFetchedProducts,
+    refetch: refetchProducts,
   } = useQuery({
     queryKey: ['listagem-produtos', { pageInfo }],
-    queryFn: getProducts,
+    queryFn: async () => {
+      const criteria: BaseGetAllCriteria = {
+        page: pageInfo.page,
+        pageSize: pageInfo.pageSize,
+      };
+      try {
+        const { data } = await ProductsService.GetAll(criteria);
+        if (data) {
+          setTotalPages(data.total);
+          return data.data;
+        }
+        return null;
+      } catch (err) {
+        console.error(err);
+      }
+    },
     enabled: true,
   });
 
   const mutation = useMutation({
-    // const {mutation} = useMutation({
     mutationKey: ['product-criteria'],
     mutationFn: async (formData: ProductRegisterFormCriteria) => {
       const formattedValues = {
@@ -55,15 +54,14 @@ export const useProduto = () => {
         valor: Number(formData.valor),
         categoriaId: formData.categoriaId,
       };
-      // try {
-      //   await ProductsService.Post(formattedValues).then(() => {
-      //     toast.success('Produto registrado com sucesso!');
-      //   });
-      // } catch (err) {
-      //   console.error(err);
-      //   toast.error('Erro ao registrar produto!');
-      // }
-      await ProductsService.Post(formattedValues);
+      try {
+        await ProductsService.Post(formattedValues).then(() => toast.success('Produto registrada com sucesso!'));
+        handleCloseModal();
+        refetchProducts();
+      } catch (err) {
+        console.error(err);
+        toast.error('Erro ao registrar produto!');
+      }
     },
   });
 

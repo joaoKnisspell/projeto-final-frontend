@@ -6,7 +6,7 @@ export const ProductsService = {
   async GetAll(criteria: ProductsCriteria) {
     return api.get('/produtos', { params: criteria });
   },
-  async Post(criteria: ProductPostCriteria) {
-    return api.post('/produtos', { params: criteria });
+  async Post(data: ProductPostCriteria) {
+    return api.post('/produtos', data);
   },
 };

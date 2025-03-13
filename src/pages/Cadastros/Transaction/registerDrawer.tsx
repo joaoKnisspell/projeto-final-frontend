@@ -1,12 +1,13 @@
-import { Drawer, Input, Row, Button, Form } from 'antd';
-import { BaseInputStyles } from '../../../components/Input/BaseInputStyles';
+import { Drawer, Row, Button, Form } from 'antd';
 import Label from '../../../components/Label';
 import { useForm } from 'antd/es/form/Form';
-import CategoriesSelect from '../../../components/CommonSelects/CategoriasSelect';
+import ProdutosSelect from '../../../components/CommonSelects/ProdutosSelect';
+import TipoTransacaoSelect from '../../../components/CommonSelects/TipoTransacaoSelect';
 
 type RegisterDrawerProps = {
   isDrawerOpen: boolean;
   handleCloseModal: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   mutation: any;
 };
 
@@ -16,7 +17,7 @@ export default function RegisterDrawer({ isDrawerOpen, handleCloseModal, mutatio
   return (
     <Drawer
       className="text-white"
-      title={'Novo Produto'}
+      title={'Nova Transação'}
       open={isDrawerOpen}
       onClose={() => {
         handleCloseModal();
@@ -36,29 +37,26 @@ export default function RegisterDrawer({ isDrawerOpen, handleCloseModal, mutatio
         <section>
           <>
             <Form.Item
-              rules={[{ required: true, message: 'O Nome do produto é obrigatório.' }]}
-              name="nomeProduto"
-              label={<Label labelName="Nome" />}
+              rules={[{ required: true, message: 'Selecione o tipo da transação.' }]}
+              name="tipoPedido"
+              label={<Label labelName="Tipo" />}
             >
-              <Input style={BaseInputStyles} placeholder="Digite o nome para o produto" />
-            </Form.Item>
-            <Form.Item
-              rules={[{ required: true, message: 'Selecione a categoria do produto.' }]}
-              name="categoriaId"
-              label={<Label labelName="Categoria" />}
-            >
-              <CategoriesSelect
+              <TipoTransacaoSelect
                 onChange={(value: string | number) => {
-                  registerForm.setFieldValue('categoriaId', value);
+                  registerForm.setFieldValue('tipoPedido', value);
                 }}
               />
             </Form.Item>
             <Form.Item
-              rules={[{ required: true, message: 'O Valor do produto é obrigatório.' }]}
-              name="valor"
-              label={<Label labelName="Valor" />}
+              rules={[{ required: true, message: 'Selecione um ou mais produtos.' }]}
+              name="produtosIds"
+              label={<Label labelName="Produtos" />}
             >
-              <Input type="number" style={BaseInputStyles} placeholder="Digite o valor do produto" />
+              <ProdutosSelect
+                onChange={(value: string | number | number[]) => {
+                  registerForm.setFieldValue('produtosIds', value);
+                }}
+              />
             </Form.Item>
           </>
         </section>

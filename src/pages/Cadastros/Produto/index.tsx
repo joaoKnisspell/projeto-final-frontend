@@ -30,11 +30,11 @@ export const CadastroProdutoPage = () => {
         <section className="max-w-[983px] w-full flex flex-col gap-4">
           <header className="flex items-center gap-4">
             <div className="w-full">
-              <Input style={inputStyle} placeholder={`Pesquisar categoria por data...`} />
+              <Input style={inputStyle} placeholder={`Pesquisar produto por nome...`} />
             </div>
             <div>
               <Button onClick={handleOpenModal} style={{ ...inputStyle, color: '#87888c' }}>
-                <span>Nova Categoria</span>
+                <span>Novo Produto</span>
                 <Plus size={20} />
               </Button>
             </div>

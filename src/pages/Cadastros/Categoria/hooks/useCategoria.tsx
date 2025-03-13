@@ -13,26 +13,28 @@ export const useCategoria = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [isRegisterDrawerOpen, setIsRegisterDrawerOpen] = useState(false);
 
-  const getCategorias = async () => {
-    const criteria: BaseGetAllCriteria = {
-      page: pageInfo.page,
-      pageSize: pageInfo.pageSize,
-    };
-    try {
-      const { data } = await CategoriesService.GetAll(criteria);
-      if (data) {
-        setTotalPages(data.total);
-        return data.data;
-      }
-      return null;
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const { data: categorias, isFetching: isFetchingCategorias } = useQuery({
+  const {
+    data: categorias,
+    isFetching: isFetchingCategorias,
+    refetch: refetchCategorias,
+  } = useQuery({
     queryKey: ['listagem-categorias'],
-    queryFn: getCategorias,
+    queryFn: async () => {
+      const criteria: BaseGetAllCriteria = {
+        page: pageInfo.page,
+        pageSize: pageInfo.pageSize,
+      };
+      try {
+        const { data } = await CategoriesService.GetAll(criteria);
+        if (data) {
+          setTotalPages(data.total);
+          return data.data;
+        }
+        return null;
+      } catch (err) {
+        console.error(err);
+      }
+    },
     enabled: true,
   });
 
@@ -45,6 +47,7 @@ export const useCategoria = () => {
       try {
         await CategoriesService.Post(formattedPostData).then(() => toast.success('Categoria registrada com sucesso!'));
         handleCloseModal();
+        refetchCategorias();
       } catch (err) {
         console.error(err);
         toast.error('Erro ao registrar categoria!');

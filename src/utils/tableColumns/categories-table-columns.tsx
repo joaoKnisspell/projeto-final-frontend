@@ -1,6 +1,12 @@
+import { Button, Row } from 'antd';
 import { CategoriesModel } from '../../models';
+import { Eye, FilePenLine, Trash2 } from 'lucide-react';
 
 export const CategoriesTablecolumns = [
+  {
+    title: 'Ações',
+    dataIndex: 'actions',
+  },
   {
     title: 'Id',
     dataIndex: 'categoriaId',
