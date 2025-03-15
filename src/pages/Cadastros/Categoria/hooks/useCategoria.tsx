@@ -12,11 +12,12 @@ export const useCategoria = () => {
   });
   const [totalPages, setTotalPages] = useState(0);
   const [isRegisterDrawerOpen, setIsRegisterDrawerOpen] = useState(false);
+  const [currentCategoryId, setCurrentCategoryId] = useState<null | number>(null);
 
   const {
     data: categorias,
     isFetching: isFetchingCategorias,
-    refetch: refetchCategorias,
+    refetch: refetchCategories,
   } = useQuery({
     queryKey: ['listagem-categorias'],
     queryFn: async () => {
@@ -47,7 +48,7 @@ export const useCategoria = () => {
       try {
         await CategoriesService.Post(formattedPostData).then(() => toast.success('Categoria registrada com sucesso!'));
         handleCloseModal();
-        refetchCategorias();
+        refetchCategories();
       } catch (err) {
         console.error(err);
         toast.error('Erro ao registrar categoria!');
@@ -70,14 +71,35 @@ export const useCategoria = () => {
     setIsRegisterDrawerOpen(true);
   };
 
+  const handleSetCurrentCategoryId = (transactionId: number) => {
+    setCurrentCategoryId(transactionId);
+  };
+
+  const deleteMutation = useMutation({
+    mutationKey: ['delete-transaction'],
+    mutationFn: async () => {
+      if (currentCategoryId) {
+        await CategoriesService.Delete(currentCategoryId).then(() => {
+          toast.success('Transação removida com sucesso.');
+          refetchCategories();
+        });
+      }
+    },
+    onError: () => {
+      toast.error('Erro ao deletar transação!');
+    },
+  });
+
   return {
     totalPages,
     categorias,
     isFetchingCategorias,
     mutation,
     isRegisterDrawerOpen,
+    deleteMutation,
     handlePageAction,
     handleCloseModal,
     handleOpenModal,
+    handleSetCurrentCategoryId,
   };
 };

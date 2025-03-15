@@ -11,6 +11,7 @@ export const useTransaction = () => {
   });
   const [totalPages, setTotalPages] = useState(0);
   const [isRegisterDrawerOpen, setIsRegisterDrawerOpen] = useState(false);
+  const [currentTransactionId, setCurrentTransactionId] = useState<null | number>(null);
 
   const handlePageAction = (page: number, pageSize: number) => {
     setPageInfo({
@@ -22,8 +23,12 @@ export const useTransaction = () => {
   const mutation = useMutation({
     mutationKey: ['transaction-post'],
     mutationFn: async (formData: TransactionCriteria) => {
+      const criteria = {
+        ...formData,
+        dataPedido: new Date(),
+      };
       try {
-        await TransactionsService.Post(formData).then(() => {
+        await TransactionsService.Post(criteria).then(() => {
           toast.success('Transação registrada com sucesso!');
           handleCloseModal();
         });
@@ -71,6 +76,25 @@ export const useTransaction = () => {
     setIsRegisterDrawerOpen(true);
   };
 
+  const handleSetCurrentTransactionId = (transactionId: number) => {
+    setCurrentTransactionId(transactionId);
+  };
+
+  const deleteMutation = useMutation({
+    mutationKey: ['delete-transaction'],
+    mutationFn: async () => {
+      if (currentTransactionId) {
+        await TransactionsService.Delete(currentTransactionId).then(() => {
+          toast.success('Transação removida com sucesso.');
+          refetchTransactions();
+        });
+      }
+    },
+    onError: () => {
+      toast.error('Erro ao deletar transação!');
+    },
+  });
+
   return {
     transactions,
     isFetchingTransactions,
@@ -79,8 +103,10 @@ export const useTransaction = () => {
     totalPages,
     mutation,
     isRegisterDrawerOpen,
+    deleteMutation,
     handlePageAction,
     handleOpenModal,
     handleCloseModal,
+    handleSetCurrentTransactionId,
   };
 };

@@ -1,11 +1,13 @@
-import { Input, Button, Table } from 'antd';
+import { Input, Button, Table, MenuProps, Dropdown, Popconfirm } from 'antd';
 import Card from '../../../components/Card/Card';
-import { Plus } from 'lucide-react';
+import { EllipsisVertical, Eye, Plus, Trash2 } from 'lucide-react';
 import { ToastContainer } from 'react-toastify';
 import { BaseContainer } from '../../../components/BaseContainer';
-import { ProductsTablecolumns } from '../../../utils/tableColumns/products-table-columns';
 import { useProduto } from './hooks/useProduto';
 import RegisterDrawer from './registerDrawer';
+import { ProdutoModel } from '../../../models';
+import { BaseInputStyle } from '../../../theme/baseInputStyle';
+import { ActionTableItem } from '../../../theme/actionTableItem';
 
 export const CadastroProdutoPage = () => {
   const {
@@ -14,15 +16,76 @@ export const CadastroProdutoPage = () => {
     totalPages,
     mutation,
     isRegisterDrawerOpen,
+    deleteMutation,
     handlePageAction,
     handleOpenModal,
     handleCloseModal,
+    handleSetCurrentProductId,
   } = useProduto();
 
-  const inputStyle = {
-    backgroundColor: '#21222d',
-    border: 'none',
-  };
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: (
+        <Button style={ActionTableItem}>
+          <Eye size={16} /> Visualizar
+        </Button>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <Popconfirm
+          title="Atenção: "
+          description="Deseja realmente deletar esta transação?"
+          onConfirm={() => deleteMutation.mutate()}
+          okText="Sim"
+          cancelText="Não"
+        >
+          <Button style={ActionTableItem}>
+            <Trash2 size={16} /> Excluir
+          </Button>
+        </Popconfirm>
+      ),
+    },
+  ];
+
+  const columns = [
+    {
+      title: 'Ações',
+      dataIndex: 'actions',
+      width: 100,
+      render: (_: unknown, record: ProdutoModel) => (
+        <Dropdown trigger={['click']} className="w-full" menu={{ items }} placement="top">
+          <button onClick={() => handleSetCurrentProductId(record.produtoId)} className="cursor-pointer">
+            <EllipsisVertical size={20} />
+          </button>
+        </Dropdown>
+      ),
+    },
+    {
+      title: 'Nome',
+      dataIndex: 'nome',
+      key: 'nome',
+      render: (_: unknown, record: ProdutoModel) => (
+        <span className="font-medium">{record?.nome ?? 'Não Informado.'}</span>
+      ),
+    },
+    {
+      title: 'Categoria',
+      dataIndex: 'categoriaId',
+      key: 'categoriaId',
+      render: (_: unknown, record: ProdutoModel) => <span>{record?.categoria?.nome ?? 'Não Informado.'}</span>,
+    },
+    {
+      title: 'Preço',
+      dataIndex: 'valor',
+      key: 'valor',
+      render: (_: unknown, record: ProdutoModel) => (
+        <span>{record?.valor?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) ?? 'Não Informado'}</span>
+      ),
+    },
+  ];
 
   return (
     <>
@@ -30,10 +93,10 @@ export const CadastroProdutoPage = () => {
         <section className="max-w-[983px] w-full flex flex-col gap-4">
           <header className="flex items-center gap-4">
             <div className="w-full">
-              <Input style={inputStyle} placeholder={`Pesquisar produto por nome...`} />
+              <Input style={BaseInputStyle} placeholder={`Pesquisar produto por nome...`} />
             </div>
             <div>
-              <Button onClick={handleOpenModal} style={{ ...inputStyle, color: '#87888c' }}>
+              <Button onClick={handleOpenModal} style={{ ...BaseInputStyle, color: '#87888c' }}>
                 <span>Novo Produto</span>
                 <Plus size={20} />
               </Button>
@@ -42,7 +105,7 @@ export const CadastroProdutoPage = () => {
           <main className="h-full">
             <Card key="categories-list" title="Listagem de Categorias">
               <Table
-                columns={ProductsTablecolumns}
+                columns={columns}
                 dataSource={products}
                 loading={isFetchingProducts}
                 size="middle"

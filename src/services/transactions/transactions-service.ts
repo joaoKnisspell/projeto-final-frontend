@@ -17,7 +17,7 @@ export const TransactionsService = {
   async Update(transacao: any) {
     return await api.get(endpoints.transactions.put);
   },
-  async Delete(transacao: any) {
-    return await api.delete(endpoints.transactions.delete);
+  async Delete(transactionId: number) {
+    return await api.delete(`/pedidos/${transactionId}`);
   },
 };

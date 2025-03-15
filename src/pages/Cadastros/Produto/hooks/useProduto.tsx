@@ -12,6 +12,7 @@ export const useProduto = () => {
   });
   const [totalPages, setTotalPages] = useState(0);
   const [isRegisterDrawerOpen, setIsRegisterDrawerOpen] = useState(false);
+  const [currentProductId, setCurrentProductId] = useState<null | number>(null);
 
   const handlePageAction = (page: number, pageSize: number) => {
     setPageInfo({
@@ -73,6 +74,25 @@ export const useProduto = () => {
     setIsRegisterDrawerOpen(true);
   };
 
+  const handleSetCurrentProductId = (transactionId: number) => {
+    setCurrentProductId(transactionId);
+  };
+
+  const deleteMutation = useMutation({
+    mutationKey: ['delete-transaction'],
+    mutationFn: async () => {
+      if (currentProductId) {
+        await ProductsService.Delete(currentProductId).then(() => {
+          toast.success('Transação removida com sucesso.');
+          refetchProducts();
+        });
+      }
+    },
+    onError: () => {
+      toast.error('Erro ao deletar transação!');
+    },
+  });
+
   return {
     totalPages,
     products,
@@ -80,8 +100,10 @@ export const useProduto = () => {
     isFetchedProducts,
     mutation,
     isRegisterDrawerOpen,
+    deleteMutation,
     handlePageAction,
     handleCloseModal,
     handleOpenModal,
+    handleSetCurrentProductId,
   };
 };

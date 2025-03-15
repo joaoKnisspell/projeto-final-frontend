@@ -16,7 +16,7 @@ export const CategoriesService = {
   async Put(data: CategoriesModel) {
     return await api.put(endpoints.categorias.put, data);
   },
-  async Delete() {
-    return await api.delete(endpoints.categorias.delete);
+  async Delete(categoryId: number) {
+    return await api.delete(`/categorias/${categoryId}`);
   },
 };

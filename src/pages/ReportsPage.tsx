@@ -3,18 +3,18 @@ import { CategoriesService } from '../services/categorias/categorias-service';
 import { BaseContainer } from '../components/BaseContainer';
 
 export const ReportsPage = () => {
-  const { data, isFetching } = useQuery({
-    queryKey: ['categorias'],
-    queryFn: async () => {
-      try {
-        const response = await CategoriesService.GetAll();
-        return response;
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    enabled: true,
-  });
+  // const { data, isFetching } = useQuery({
+  //   queryKey: ['categorias'],
+  //   queryFn: async () => {
+  //     try {
+  //       const response = await CategoriesService.GetAll();
+  //       return response;
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   },
+  //   enabled: true,
+  // });
 
   return (
     <>

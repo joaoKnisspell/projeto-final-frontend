@@ -9,4 +9,7 @@ export const ProductsService = {
   async Post(data: ProductPostCriteria) {
     return api.post('/produtos', data);
   },
+  async Delete(productId: number) {
+    return api.delete(`/produtos/${productId}`);
+  },
 };
