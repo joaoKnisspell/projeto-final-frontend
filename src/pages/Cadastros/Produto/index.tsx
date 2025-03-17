@@ -16,7 +16,10 @@ export const CadastroProdutoPage = () => {
     totalPages,
     mutation,
     isRegisterDrawerOpen,
+    drawerMode,
     deleteMutation,
+    product,
+    currentProductId,
     handlePageAction,
     handleOpenModal,
     handleCloseModal,
@@ -27,7 +30,12 @@ export const CadastroProdutoPage = () => {
     {
       key: '1',
       label: (
-        <Button style={ActionTableItem}>
+        <Button
+          onClick={() => {
+            handleOpenModal('view');
+          }}
+          style={ActionTableItem}
+        >
           <Eye size={16} /> Visualizar
         </Button>
       ),
@@ -96,7 +104,7 @@ export const CadastroProdutoPage = () => {
               <Input style={BaseInputStyle} placeholder={`Pesquisar produto por nome...`} />
             </div>
             <div>
-              <Button onClick={handleOpenModal} style={{ ...BaseInputStyle, color: '#87888c' }}>
+              <Button onClick={() => handleOpenModal('add')} style={{ ...BaseInputStyle, color: '#87888c' }}>
                 <span>Novo Produto</span>
                 <Plus size={20} />
               </Button>
@@ -119,7 +127,14 @@ export const CadastroProdutoPage = () => {
               />
             </Card>
           </main>
-          <RegisterDrawer mutation={mutation} isDrawerOpen={isRegisterDrawerOpen} handleCloseModal={handleCloseModal} />
+          <RegisterDrawer
+            productId={currentProductId}
+            mode={drawerMode}
+            mutation={mutation}
+            isDrawerOpen={isRegisterDrawerOpen}
+            handleCloseModal={handleCloseModal}
+            data={product}
+          />
           <ToastContainer autoClose={3000} theme="dark" />
         </section>
       </BaseContainer>

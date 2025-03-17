@@ -4,10 +4,12 @@ import { CategoriesService } from '../../services/categorias/categorias-service'
 import { CategoriesModel } from '../../models';
 
 type CategoriesSelectProps = {
+  disabled: boolean;
   onChange: (value: string | number) => void;
+  initialValue: string | null | number | undefined;
 };
 
-export default function CategoriesSelect({ onChange }: CategoriesSelectProps) {
+export default function CategoriesSelect({ onChange, disabled, initialValue }: CategoriesSelectProps) {
   const { data: categories, isFetching: isFetchingCategories } = useQuery({
     queryKey: ['categories-select'],
     queryFn: async () => {
@@ -39,6 +41,8 @@ export default function CategoriesSelect({ onChange }: CategoriesSelectProps) {
       isLoading={isFetchingCategories}
       options={selectOptions}
       placeholder="Selecione a categoria"
+      disabled={disabled}
+      initialValue={initialValue}
     />
   );
 }

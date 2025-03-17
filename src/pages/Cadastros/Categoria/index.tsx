@@ -36,7 +36,7 @@ export const CadastroCategoriaPage = () => {
       label: (
         <Popconfirm
           title="Atenção: "
-          description="Deseja realmente deletar esta transação?"
+          description="Deseja realmente deletar esta categoria?"
           onConfirm={() => deleteMutation.mutate()}
           okText="Sim"
           cancelText="Não"
@@ -56,31 +56,25 @@ export const CadastroCategoriaPage = () => {
       width: 100,
       render: (_: unknown, record: any) => (
         <Dropdown trigger={['click']} className="w-full" menu={{ items }} placement="top">
-          <button onClick={() => handleSetCurrentCategoryId(record.produtoId)} className="cursor-pointer">
+          <button onClick={() => handleSetCurrentCategoryId(record.categoriaId)} className="cursor-pointer">
             <EllipsisVertical size={20} />
           </button>
         </Dropdown>
       ),
     },
     {
-      title: 'Nome',
-      dataIndex: 'nome',
-      key: 'nome',
-      render: (_: unknown, record: any) => <span className="font-medium">{record?.nome ?? 'Não Informado.'}</span>,
+      title: 'Id',
+      dataIndex: 'categoriaId',
+      key: 'categoriaId',
+      render: (_: unknown, record: any) => (
+        <span className="font-medium">{record?.categoriaId ?? 'Não Informado.'}</span>
+      ),
     },
     {
       title: 'Categoria',
-      dataIndex: 'categoriaId',
-      key: 'categoriaId',
-      render: (_: unknown, record: any) => <span>{record?.categoria?.nome ?? 'Não Informado.'}</span>,
-    },
-    {
-      title: 'Preço',
-      dataIndex: 'valor',
-      key: 'valor',
-      render: (_: unknown, record: any) => (
-        <span>{record?.valor?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) ?? 'Não Informado'}</span>
-      ),
+      dataIndex: 'nome',
+      key: 'nome',
+      render: (_: unknown, record: any) => <span>{record?.nome ?? 'Não Informado.'}</span>,
     },
   ];
 

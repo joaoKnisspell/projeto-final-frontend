@@ -36,6 +36,7 @@ function App() {
               colorBorder: 'transparent',
               optionSelectedBg: '#20aef3',
               multipleItemBg: '#20aef3',
+              colorTextDisabled: '#ffffff',
             },
           },
         }}

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { BaseGetAllCriteria } from '../../../../models/criterias/base-get-all.criteria';
 import { ProductRegisterFormCriteria } from '../../../../models/criterias/product-register-form.criteria';
 import { toast } from 'react-toastify';
+import { ApiProductPostError } from '../../../../@types/errors';
 
 export const useProduto = () => {
   const [pageInfo, setPageInfo] = useState({
@@ -12,6 +13,7 @@ export const useProduto = () => {
   });
   const [totalPages, setTotalPages] = useState(0);
   const [isRegisterDrawerOpen, setIsRegisterDrawerOpen] = useState(false);
+  const [drawerMode, setDrawerMode] = useState<'view' | 'add' | 'edit'>('view');
   const [currentProductId, setCurrentProductId] = useState<null | number>(null);
 
   const handlePageAction = (page: number, pageSize: number) => {
@@ -47,6 +49,26 @@ export const useProduto = () => {
     enabled: true,
   });
 
+  const {
+    data: product,
+    isFetching: isFetchingProduct,
+    isFetched: isFetchedProduct,
+  } = useQuery({
+    queryKey: [`product-${currentProductId}`, { currentProductId }],
+    queryFn: async () => {
+      if (currentProductId) {
+        try {
+          const { data } = await ProductsService.GetById(currentProductId);
+          return data;
+        } catch (err) {
+          console.error(err);
+        }
+      }
+      return null;
+    },
+    enabled: !!currentProductId,
+  });
+
   const mutation = useMutation({
     mutationKey: ['product-criteria'],
     mutationFn: async (formData: ProductRegisterFormCriteria) => {
@@ -68,9 +90,11 @@ export const useProduto = () => {
 
   const handleCloseModal = () => {
     setIsRegisterDrawerOpen(false);
+    setCurrentProductId(null);
   };
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (mode: 'view' | 'add' | 'edit') => {
+    setDrawerMode(mode);
     setIsRegisterDrawerOpen(true);
   };
 
@@ -79,17 +103,17 @@ export const useProduto = () => {
   };
 
   const deleteMutation = useMutation({
-    mutationKey: ['delete-transaction'],
+    mutationKey: ['delete-product'],
     mutationFn: async () => {
       if (currentProductId) {
         await ProductsService.Delete(currentProductId).then(() => {
-          toast.success('Transação removida com sucesso.');
+          toast.success('Produto removido com sucesso.');
           refetchProducts();
         });
       }
     },
-    onError: () => {
-      toast.error('Erro ao deletar transação!');
+    onError: (error: ApiProductPostError) => {
+      toast.error(error?.response?.data?.error);
     },
   });
 
@@ -100,7 +124,12 @@ export const useProduto = () => {
     isFetchedProducts,
     mutation,
     isRegisterDrawerOpen,
+    product,
+    isFetchingProduct,
+    isFetchedProduct,
+    drawerMode,
     deleteMutation,
+    currentProductId,
     handlePageAction,
     handleCloseModal,
     handleOpenModal,

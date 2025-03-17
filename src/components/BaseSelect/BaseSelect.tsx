@@ -8,17 +8,21 @@ type SelectOptionProps = {
 type BaseSelectProps = {
   placeholder: string;
   options: SelectOptionProps[];
-  onChange?: (value: string | number) => void;
   isLoading?: boolean;
   multiple?: 'tags' | 'multiple' | undefined;
+  disabled: boolean;
+  onChange?: (value: string | number) => void;
+  initialValue: string | null | number | undefined;
 };
 
 export default function BaseSelect({
   placeholder,
   options,
-  onChange,
   isLoading,
   multiple = undefined,
+  disabled,
+  onChange,
+  initialValue,
 }: BaseSelectProps) {
   return (
     <Select
@@ -26,9 +30,12 @@ export default function BaseSelect({
       className="bg-dark-700 rounded-md"
       placeholder={placeholder}
       options={options}
-      onChange={onChange}
       loading={isLoading}
       mode={multiple}
+      disabled={disabled}
+      onChange={onChange}
+      defaultValue={initialValue}
+      value={initialValue ? initialValue : undefined}
     />
   );
 }

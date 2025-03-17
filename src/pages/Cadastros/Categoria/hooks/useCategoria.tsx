@@ -71,22 +71,22 @@ export const useCategoria = () => {
     setIsRegisterDrawerOpen(true);
   };
 
-  const handleSetCurrentCategoryId = (transactionId: number) => {
-    setCurrentCategoryId(transactionId);
+  const handleSetCurrentCategoryId = (categoryId: number) => {
+    setCurrentCategoryId(categoryId);
   };
 
   const deleteMutation = useMutation({
-    mutationKey: ['delete-transaction'],
+    mutationKey: ['delete-category'],
     mutationFn: async () => {
       if (currentCategoryId) {
         await CategoriesService.Delete(currentCategoryId).then(() => {
-          toast.success('Transação removida com sucesso.');
+          toast.success('Categoria removida com sucesso.');
           refetchCategories();
         });
       }
     },
     onError: () => {
-      toast.error('Erro ao deletar transação!');
+      toast.error('Erro ao deletar categoria!');
     },
   });
 
