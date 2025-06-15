@@ -13,28 +13,28 @@ export default function SummaryCardsSection({ summary }: SummaryCardsSectionProp
         icon={<ChartNoAxesCombined className="text-orange" size={26} />}
         info={summary?.totalDoDia.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
         title="Saldo do dia"
-        subtitle="+10% from yesterday"
+        subtitle={`Saldo do dia ${new Date().toLocaleDateString('pt-BR')}`}
         color="orange"
       />
       <SummaryDetailCard
         icon={<FileChartLine className="text-green" size={26} />}
         info={summary?.numeroVendas}
         title="Número de Vendas"
-        subtitle="+8% from yesterday "
+        subtitle={`Qtd. Vendas do dia ${new Date().toLocaleDateString('pt-BR')}`}
         color="green"
       />
       <SummaryDetailCard
         icon={<ShoppingBag className="text-pink" size={26} />}
         info={summary?.qtdProdutosVendidos}
         title="Produtos Vendidos"
-        subtitle="+2% from yesterday"
+        subtitle={`Qtd. produtos vendidos do dia ${new Date().toLocaleDateString('pt-BR')}`}
         color="pink"
       />
       <SummaryDetailCard
         icon={<HandCoins className="text-blue" size={26} />}
         info={summary?.saidas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
         title="Gastos"
-        subtitle="+3% from yesterday"
+        subtitle={`Gastos do dia ${new Date().toLocaleDateString('pt-BR')}`}
         color="blue"
       />
     </section>
