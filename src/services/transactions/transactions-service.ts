@@ -11,8 +11,8 @@ export const TransactionsService = {
     console.log(jsonData);
     return await api.post(endpoints.transactions.post, jsonData);
   },
-  async GetById() {
-    return await api.get(endpoints.transactions.getById);
+  async GetById(transactionId: number) {
+    return await api.get(`/pedidos/${transactionId}`);
   },
   async Update(transacao: any) {
     return await api.get(endpoints.transactions.put);

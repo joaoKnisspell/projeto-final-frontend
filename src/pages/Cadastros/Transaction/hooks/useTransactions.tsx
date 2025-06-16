@@ -12,6 +12,7 @@ export const useTransaction = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [isRegisterDrawerOpen, setIsRegisterDrawerOpen] = useState(false);
   const [currentTransactionId, setCurrentTransactionId] = useState<null | number>(null);
+  const [drawerMode, setDrawerMode] = useState<'view' | 'add' | 'edit'>('view');
 
   const handlePageAction = (page: number, pageSize: number) => {
     setPageInfo({
@@ -68,14 +69,34 @@ export const useTransaction = () => {
     enabled: true,
   });
 
+  const {
+    data: transaction,
+    isFetching: isFetchingTransaction,
+    isFetched: isFetchedTransaction,
+  } = useQuery({
+    queryKey: [`product-${currentTransactionId}`, { currentTransactionId }],
+    queryFn: async () => {
+      if (currentTransactionId) {
+        try {
+          const { data } = await TransactionsService.GetById(currentTransactionId);
+          return data;
+        } catch (err) {
+          console.error(err);
+        }
+      }
+      return null;
+    },
+    enabled: !!currentTransactionId,
+  });
+
   const handleCloseModal = () => {
     setIsRegisterDrawerOpen(false);
   };
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (mode: 'view' | 'add' | 'edit') => {
+    setDrawerMode(mode);
     setIsRegisterDrawerOpen(true);
   };
-
   const handleSetCurrentTransactionId = (transactionId: number) => {
     setCurrentTransactionId(transactionId);
   };
@@ -99,11 +120,15 @@ export const useTransaction = () => {
     transactions,
     isFetchingTransactions,
     isFetchedTransactions,
+    transaction,
+    isFetchingTransaction,
+    isFetchedTransaction,
     pageInfo,
     totalPages,
     mutation,
     isRegisterDrawerOpen,
     deleteMutation,
+    drawerMode,
     handlePageAction,
     handleOpenModal,
     handleCloseModal,

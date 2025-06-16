@@ -1,4 +1,4 @@
-import { Input, Button, Table, MenuProps, Dropdown, Popconfirm } from 'antd';
+import { Button, Table, MenuProps, Dropdown, Popconfirm } from 'antd';
 import Card from '../../../components/Card/Card';
 import { EllipsisVertical, Eye, Plus, Trash2 } from 'lucide-react';
 import { ToastContainer } from 'react-toastify';
@@ -19,7 +19,6 @@ export const CadastroProdutoPage = () => {
     drawerMode,
     deleteMutation,
     product,
-    currentProductId,
     handlePageAction,
     handleOpenModal,
     handleCloseModal,
@@ -99,10 +98,7 @@ export const CadastroProdutoPage = () => {
     <>
       <BaseContainer key="product-register-page">
         <section className="max-w-[983px] w-full flex flex-col gap-4">
-          <header className="flex items-center gap-4">
-            <div className="w-full">
-              <Input style={BaseInputStyle} placeholder={`Pesquisar produto por nome...`} />
-            </div>
+          <header className="flex justify-end items-center gap-4">
             <div>
               <Button onClick={() => handleOpenModal('add')} style={{ ...BaseInputStyle, color: '#87888c' }}>
                 <span>Novo Produto</span>
@@ -111,7 +107,7 @@ export const CadastroProdutoPage = () => {
             </div>
           </header>
           <main className="h-full">
-            <Card key="categories-list" title="Listagem de Categorias">
+            <Card key="categories-list" title="Listagem de Produtos">
               <Table
                 columns={columns}
                 dataSource={products}
@@ -128,7 +124,6 @@ export const CadastroProdutoPage = () => {
             </Card>
           </main>
           <RegisterDrawer
-            productId={currentProductId}
             mode={drawerMode}
             mutation={mutation}
             isDrawerOpen={isRegisterDrawerOpen}

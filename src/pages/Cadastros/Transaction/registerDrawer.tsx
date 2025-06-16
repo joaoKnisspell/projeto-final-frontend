@@ -1,18 +1,31 @@
-import { Drawer, Row, Button, Form } from 'antd';
+import { Drawer, Row, Button, Form, Input } from 'antd';
 import Label from '../../../components/Label';
 import { useForm } from 'antd/es/form/Form';
 import ProdutosSelect from '../../../components/CommonSelects/ProdutosSelect';
 import TipoTransacaoSelect from '../../../components/CommonSelects/TipoTransacaoSelect';
+import { useEffect } from 'react';
+import { TransactionModel } from '../../../models';
 
 type RegisterDrawerProps = {
   isDrawerOpen: boolean;
   handleCloseModal: () => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   mutation: any;
+  mode: 'view' | 'add' | 'edit';
+  data: TransactionModel | null;
 };
 
-export default function RegisterDrawer({ isDrawerOpen, handleCloseModal, mutation }: RegisterDrawerProps) {
+export default function RegisterDrawer({ isDrawerOpen, handleCloseModal, mutation, data, mode }: RegisterDrawerProps) {
   const [registerForm] = useForm();
+
+  useEffect(() => {
+    if (data && mode !== 'add') {
+      registerForm.setFieldsValue({
+        tipoPedido: data.tipoPedido,
+        produtos: data.pedidoProdutos,
+      });
+    }
+  }, [data, mode]);
 
   return (
     <Drawer
@@ -42,6 +55,8 @@ export default function RegisterDrawer({ isDrawerOpen, handleCloseModal, mutatio
               label={<Label labelName="Tipo" />}
             >
               <TipoTransacaoSelect
+                disabled={mode !== 'add' ? true : false}
+                initialValue={mode === 'view' ? data?.tipoPedido : null}
                 onChange={(value: string | number) => {
                   registerForm.setFieldValue('tipoPedido', value);
                 }}

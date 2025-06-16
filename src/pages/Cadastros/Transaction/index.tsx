@@ -1,4 +1,4 @@
-import { Input, Button, Table, Dropdown, MenuProps, Popconfirm } from 'antd';
+import { Button, Table, Dropdown, MenuProps, Popconfirm } from 'antd';
 import Card from '../../../components/Card/Card';
 import { ArrowDown, ArrowUp, EllipsisVertical, Eye, Plus, Trash2 } from 'lucide-react';
 import { ToastContainer } from 'react-toastify';
@@ -17,6 +17,8 @@ export const CadastroTransactionPage = () => {
     mutation,
     isRegisterDrawerOpen,
     deleteMutation,
+    drawerMode,
+    transaction,
     handlePageAction,
     handleOpenModal,
     handleCloseModal,
@@ -27,7 +29,12 @@ export const CadastroTransactionPage = () => {
     {
       key: '1',
       label: (
-        <Button style={ActionTableItem}>
+        <Button
+          onClick={() => {
+            handleOpenModal('view');
+          }}
+          style={ActionTableItem}
+        >
           <Eye size={16} /> Visualizar
         </Button>
       ),
@@ -122,10 +129,7 @@ export const CadastroTransactionPage = () => {
     <>
       <BaseContainer key="transaction-register-page">
         <section className="max-w-[983px] w-full flex flex-col gap-4">
-          <header className="flex items-center gap-4">
-            <div className="w-full">
-              <Input style={BaseInputStyle} placeholder={`Filtrar transações por data...`} />
-            </div>
+          <header className="flex items-center justify-end gap-4">
             <div>
               <Button onClick={handleOpenModal} style={{ ...BaseInputStyle, color: '#87888c' }}>
                 <span>Nova Transação</span>
@@ -150,7 +154,13 @@ export const CadastroTransactionPage = () => {
               />
             </Card>
           </main>
-          <RegisterDrawer mutation={mutation} isDrawerOpen={isRegisterDrawerOpen} handleCloseModal={handleCloseModal} />
+          <RegisterDrawer
+            data={transaction}
+            mode={drawerMode}
+            mutation={mutation}
+            isDrawerOpen={isRegisterDrawerOpen}
+            handleCloseModal={handleCloseModal}
+          />
           <ToastContainer autoClose={3000} theme="dark" />
         </section>
       </BaseContainer>

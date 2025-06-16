@@ -24,14 +24,6 @@ export const CadastroCategoriaPage = () => {
 
   const items: MenuProps['items'] = [
     {
-      key: '1',
-      label: (
-        <Button style={ActionTableItem}>
-          <Eye size={16} /> Visualizar
-        </Button>
-      ),
-    },
-    {
       key: '2',
       label: (
         <Popconfirm
@@ -81,10 +73,7 @@ export const CadastroCategoriaPage = () => {
   return (
     <BaseContainer key="category-register-page">
       <section className="max-w-[983px] w-full flex flex-col gap-4">
-        <header className="flex items-center gap-4">
-          <div className="w-full">
-            <Input style={BaseInputStyle} placeholder={`Pesquisar categoria por nome...`} />
-          </div>
+        <header className="flex justify-end items-center gap-4">
           <div>
             <Button onClick={handleOpenModal} style={{ ...BaseInputStyle, color: '#87888c' }}>
               <span>Nova Categoria</span>

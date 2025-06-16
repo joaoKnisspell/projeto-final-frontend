@@ -2,9 +2,11 @@ import BaseSelect from '../BaseSelect/BaseSelect';
 
 type TipoTransacaoSelectProps = {
   onChange: (value: string | number) => void;
+  initialValue: string | null | undefined;
+  disabled: boolean;
 };
 
-export default function TipoTransacaoSelect({ onChange }: TipoTransacaoSelectProps) {
+export default function TipoTransacaoSelect({ onChange, initialValue, disabled }: TipoTransacaoSelectProps) {
   const selectOptions = [
     {
       label: 'Entrada',
@@ -16,5 +18,13 @@ export default function TipoTransacaoSelect({ onChange }: TipoTransacaoSelectPro
     },
   ];
 
-  return <BaseSelect onChange={onChange} options={selectOptions} placeholder="Selecione o Tipo de Transação" />;
+  return (
+    <BaseSelect
+      disabled={disabled}
+      initialValue={initialValue}
+      onChange={onChange}
+      options={selectOptions}
+      placeholder="Selecione o Tipo de Transação"
+    />
+  );
 }

@@ -30,7 +30,7 @@ export default function RegisterDrawer({ isDrawerOpen, mode, data, mutation, han
   return (
     <Drawer
       className="text-white"
-      title={'Novo Produto'}
+      title={mode !== 'view' ? 'Novo Produto' : data?.nome}
       open={isDrawerOpen}
       onClose={() => {
         handleCloseModal();

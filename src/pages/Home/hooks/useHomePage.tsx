@@ -6,7 +6,7 @@ export default function useHomePage() {
     queryKey: ['gerenciamento-resumo'],
     queryFn: async () => {
       try {
-        const response = await GerenciamentoService.GetSummary();
+        const response = await GerenciamentoService.GetSummary(new Date().toISOString().slice(0, 10));
         return response.data;
       } catch (error) {
         console.error(error);
