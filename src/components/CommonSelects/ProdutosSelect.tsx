@@ -2,12 +2,20 @@ import { useQuery } from '@tanstack/react-query';
 import { ProdutoModel } from '../../models';
 import { ProductsService } from '../../services/produtos/produtos-service';
 import BaseSelect from '../BaseSelect/BaseSelect';
+import { useEffect } from 'react';
 
 type ProdutosSelectProps = {
   onChange: (value: string | number) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  initialValue: any;
+  disabled: boolean;
 };
 
-export default function ProdutosSelect({ onChange }: ProdutosSelectProps) {
+export default function ProdutosSelect({ onChange, initialValue, disabled }: ProdutosSelectProps) {
+  useEffect(() => {
+    console.log(initialValue);
+  }, [initialValue]);
+
   const { data: products, isFetching: isFetchingProducts } = useQuery({
     queryKey: ['products-select'],
     queryFn: async () => {
@@ -38,6 +46,8 @@ export default function ProdutosSelect({ onChange }: ProdutosSelectProps) {
 
   return (
     <BaseSelect
+      disabled={disabled}
+      initialValue={initialValue}
       isLoading={isFetchingProducts}
       onChange={onChange}
       options={selectOptions}

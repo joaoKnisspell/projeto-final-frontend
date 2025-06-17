@@ -29,19 +29,6 @@ export const CadastroTransactionPage = () => {
     {
       key: '1',
       label: (
-        <Button
-          onClick={() => {
-            handleOpenModal('view');
-          }}
-          style={ActionTableItem}
-        >
-          <Eye size={16} /> Visualizar
-        </Button>
-      ),
-    },
-    {
-      key: '2',
-      label: (
         <Popconfirm
           title="Atenção: "
           description="Deseja realmente deletar esta transação?"
@@ -93,14 +80,7 @@ export const CadastroTransactionPage = () => {
       dataIndex: 'produtos',
       key: 'produtos',
       render: (_: unknown, record: TransactionModel) => (
-        <span>
-          {record?.pedidoProdutos.length <= 3
-            ? record?.pedidoProdutos?.map((product: PedidoProdutoModel) => product.produto.nome).join(', ')
-            : record?.pedidoProdutos
-                ?.slice(0, 3)
-                .map((product: PedidoProdutoModel) => product.produto.nome)
-                .join(', ') + ' ...'}
-        </span>
+        <span>{record?.pedidoProdutos?.map((product: PedidoProdutoModel) => product.produto.nome).join(', ')}</span>
       ),
     },
     {
@@ -131,7 +111,7 @@ export const CadastroTransactionPage = () => {
         <section className="max-w-[983px] w-full flex flex-col gap-4">
           <header className="flex items-center justify-end gap-4">
             <div>
-              <Button onClick={handleOpenModal} style={{ ...BaseInputStyle, color: '#87888c' }}>
+              <Button onClick={() => handleOpenModal('add')} style={{ ...BaseInputStyle, color: '#87888c' }}>
                 <span>Nova Transação</span>
                 <Plus size={20} />
               </Button>

@@ -1,4 +1,4 @@
-import { Drawer, Row, Button, Form, Input } from 'antd';
+import { Drawer, Row, Button, Form } from 'antd';
 import Label from '../../../components/Label';
 import { useForm } from 'antd/es/form/Form';
 import ProdutosSelect from '../../../components/CommonSelects/ProdutosSelect';
@@ -55,7 +55,7 @@ export default function RegisterDrawer({ isDrawerOpen, handleCloseModal, mutatio
               label={<Label labelName="Tipo" />}
             >
               <TipoTransacaoSelect
-                disabled={mode !== 'add' ? true : false}
+                disabled={mode === 'add' ? false : true}
                 initialValue={mode === 'view' ? data?.tipoPedido : null}
                 onChange={(value: string | number) => {
                   registerForm.setFieldValue('tipoPedido', value);
@@ -68,9 +68,11 @@ export default function RegisterDrawer({ isDrawerOpen, handleCloseModal, mutatio
               label={<Label labelName="Produtos" />}
             >
               <ProdutosSelect
+                disabled={mode === 'add' ? false : true}
                 onChange={(value: string | number | number[]) => {
                   registerForm.setFieldValue('produtosIds', value);
                 }}
+                initialValue={mode === 'view' ? data : null}
               />
             </Form.Item>
           </>
